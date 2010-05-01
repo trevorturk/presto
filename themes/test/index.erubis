@@ -1,5 +1,0 @@
-<ul>
-<% @posts.each do |post| %>
-  <li><%= post.post_title %></li>
-<% end %>
-</ul>

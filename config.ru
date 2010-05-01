@@ -1,2 +1,2 @@
-require 'ae'
-run AE.new
+require 'presto'
+run Presto.new

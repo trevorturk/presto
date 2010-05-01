@@ -9,6 +9,7 @@ development:
   # username:
   # password:
   # host: localhost
+  # encoding: utf8 # older wp databases might be latin1
 # postgresql
   # adapter: postgresql
   # database: example_development

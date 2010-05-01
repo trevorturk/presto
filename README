@@ -1,0 +1,18 @@
+# gems
+gem install activerecord erubis sinatra sinatra-activerecord
+
+# get remote mysql db locally
+mysqldump -u USERNAME -p -h HOST DATABASE > dumpfile
+mysql -u USERNAME -p DATABASE < dumpfile
+
+# todo
+fix encoding
+no-www
+remove trailing slash
+make tt heroku app
+redirect ae->tt w/ rack app (make ae heroku app)
+
+# later
+deny access to erubis/rb files in public (or move themes out of public)
+make gem for routes and/or wp models
+tests
