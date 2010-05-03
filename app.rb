@@ -28,7 +28,9 @@ class App < Sinatra::Base
     @posts = Post.published.recent.limit(@options['posts_per_page'])
     erubis :index
   end
-
+  
+  # TODO trailing slash optional? http://www.sinatrarb.com/faq.html#slash
+  
   # TODO not found and errors
 
   # not_found do

@@ -8,7 +8,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 p,dl,hr,h1,h2,h3,h4,h5,h6,ol,ul,pre,table,address,fieldset {margin-bottom:15px}
 
 body {color:#333;}
-a {color: #24a;}
+a {color: #004080;}
 p {line-height:1.3em;}
 
 h1 {font-size:21px}
@@ -24,10 +24,10 @@ li {margin-left:15px}
 #header-right {background:#999;}
 
 .post {margin-bottom:35px; padding-bottom:24px; border-bottom:1px solid #efefef;}
-.post_content pre {background:#efefef; padding:6px; overflow:auto;}
+.post_content pre {font-family: monospace; background:#f8f8ff; padding:6px; overflow:auto;}
 .post_content blockquote {margin:0 15px; padding-left:15px; border-left:1px solid #ddd;}
 
-#bio img {float:left; border:1px solid #efefef; padding:2px; margin-right:6px;}
-#bio p {font-size:0.9em; color:#444; margin-bottom:20px;}
+#bio img {float:left; border:1px solid #efefef; padding:2px; margin-right:10px;}
+#bio p {font-family: monospace; line-height:1em; color:#444; margin-bottom:20px;}
 #icons {clear:both; text-align:center;}
 #icons img {width:32px;}
