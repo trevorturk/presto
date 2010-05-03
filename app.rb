@@ -39,7 +39,7 @@ class App < Sinatra::Base
   #   erubis :error
   # end
 
-  # CUSTOM
+  # custom redirects
 
   get '/click' do
     redirect 'http://clickthatbutton.com', 301

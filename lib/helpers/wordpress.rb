@@ -4,6 +4,20 @@
 # convert_smilies, convert_chars, wpautop, shortcode_unautop,
 # prepend_attachment... but we're only doing wpautop (for now)
 
+# TODO figure out how to not extend String with these methods
+class String
+  def wp_stripslashes
+    self.gsub(/\\(\'|\"|\\)/, '\1')
+  end
+
+  def wp_clean_pre
+    tmp = self
+    tmp = tmp.gsub('<br />','')
+    tmp = tmp.gsub(/<p>/, "\n")
+    tmp.gsub('</p>','')
+  end
+end
+
 module WordPressHelpers
   def wp_format(str)
     wpautop(str)
@@ -44,19 +58,5 @@ module WordPressHelpers
   	end
   	pee = pee.gsub(/\n<\/p>$/, '</p>')
   	pee
-  end
-end
-
-# TODO figure out how to not extend String with these methods
-class String
-  def wp_stripslashes
-    self.gsub(/\\(\'|\"|\\)/, '\1')
-  end
-
-  def wp_clean_pre
-    tmp = self
-    tmp = tmp.gsub('<br />','')
-    tmp = tmp.gsub(/<p>/, "\n")
-    tmp.gsub('</p>','')
   end
 end

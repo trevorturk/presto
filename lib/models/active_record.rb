@@ -1,3 +1,5 @@
+# TODO split these up
+
 class Post < ActiveRecord::Base
   set_table_name "wp_posts"
   set_primary_key "ID"
