@@ -1,2 +1,2 @@
-require 'presto'
-run Presto.new
+require 'app'
+run App.new

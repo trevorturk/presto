@@ -15,4 +15,19 @@ end
 class Option < ActiveRecord::Base
   set_table_name "wp_options"
   set_primary_key "option_id"
+
+  def self.get(option_name)
+    find_by_option_name!(option_name).option_value
+  end
+
+  def self.set(option_name, option_value)
+    find_by_option_name!(option_name).update_attribute('option_value', option_value)
+  end
+
+  def self.get_all
+    @options = {}
+    opts = all
+    opts.each { |opt| @options[opt.option_name] = opt.option_value }
+    @options
+  end
 end

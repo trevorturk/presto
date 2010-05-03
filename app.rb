@@ -2,11 +2,11 @@ require 'sinatra/base'
 
 require 'active_record'
 require 'erubis'
-require 'wp'
 
-require 'wp_format'
+require 'lib/models/active_record'
+require 'lib/helpers/wordpress'
 
-class Presto < Sinatra::Base
+class App < Sinatra::Base
 
   configure do
     set :public, File.dirname(__FILE__) + '/public'
@@ -18,8 +18,10 @@ class Presto < Sinatra::Base
     ActiveRecord::Base.logger = Logger.new(STDOUT)
   end
 
+  helpers WordPressHelpers
+
   before do
-    @options = get_options
+    @options = Option.get_all # e.g. <%= @options['blogname'] %>
   end
 
   get '/' do
@@ -29,15 +31,15 @@ class Presto < Sinatra::Base
 
   # TODO
 
-  not_found do
-    erubis :'404'
-  end
+  # not_found do
+  #   erubis :not_found
+  # end
 
   # error do
   #   erubis :error
   # end
 
-  # CUSTOM redirects
+  # CUSTOM
 
   get '/click' do
     redirect 'http://clickthatbutton.com', 301
@@ -73,14 +75,5 @@ class Presto < Sinatra::Base
 
   get '/wordpress' do
     redirect 'http://wordpress.org/extend/plugins/profile/trevorturk', 301
-  end
-
-private
-
-  def get_options
-    @options = {}
-    opts = Option.all
-    opts.each { |opt| @options[opt.option_name] = opt.option_value }
-    @options
   end
 end
