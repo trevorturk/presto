@@ -5,12 +5,13 @@
 # prepend_attachment... but we're only doing wpautop (for now)
 
 # TODO figure out how to not extend String with these methods
+
 class String
   def wp_stripslashes
     self.gsub(/\\(\'|\"|\\)/, '\1')
   end
 
-  def wp_clean_pre
+  def wp_cleanpre
     tmp = self
     tmp = tmp.gsub('<br />','')
     tmp = tmp.gsub(/<p>/, "\n")
@@ -54,9 +55,9 @@ module WordPressHelpers
   	pee = pee.gsub(/(<\/?#{allblocks}[^>]*>)\s*<br \/>/, "\\1")
   	pee = pee.gsub(/<br \/>(\s*<\/?(?:p|li|div|dl|dd|dt|th|pre|td|ul|ol)[^>]*>)/, "\\1")
   	if /<pre/.match(pee)
-  	  pee = pee.gsub(/(<pre[^>]*>)([\000-\377]*?)<\/pre>/is) { |match| $1.wp_stripslashes + $2.wp_clean_pre.wp_stripslashes + '</pre>' };
+  	  pee = pee.gsub(/(<pre[^>]*>)([\000-\377]*?)<\/pre>/is) { |match| $1.wp_stripslashes + $2.wp_cleanpre.wp_stripslashes + '</pre>' };
   	end
-  	pee = pee.gsub(/\n<\/p>$/, '</p>')
-  	pee
+  	pee.gsub(/\n<\/p>$/, '</p>')
+  	pee.chop
   end
 end

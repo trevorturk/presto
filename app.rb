@@ -29,7 +29,7 @@ class App < Sinatra::Base
     erubis :index
   end
 
-  # TODO
+  # TODO not found and errors
 
   # not_found do
   #   erubis :not_found
