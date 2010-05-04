@@ -1,11 +1,4 @@
-# via http://codex.wordpress.org/How_WordPress_Processes_Post_Content
-
-# The default handling of posts/the_content is: wptexturize,
-# convert_smilies, convert_chars, wpautop, shortcode_unautop,
-# prepend_attachment... but we're only doing wpautop (for now)
-
 # TODO figure out how to not extend String with these methods
-
 class String
   def wp_stripslashes
     self.gsub(/\\(\'|\"|\\)/, '\1')
@@ -20,6 +13,32 @@ class String
 end
 
 module WordPressHelpers
+
+  # TODO move this stuff into separate files
+
+  # conditional tags
+  # http://codex.wordpress.org/Conditional_Tags
+
+  # TODO take all the params they take
+  def is_single?
+    @posts.size == 1
+  end
+
+  # link helpers
+
+  def link_to(post)
+    date = post.post_date.strftime("%Y-%m-%d").split("-")
+    link = "#{date[0]}/#{date[1]}/#{date[2]}/#{post.post_name}/"
+    "<a href=\"#{link}\">#{post.post_title}</a>"
+  end
+
+  # formatting
+  # via http://codex.wordpress.org/How_WordPress_Processes_Post_Content
+
+  # The default handling of posts/the_content is: wptexturize,
+  # convert_smilies, convert_chars, wpautop, shortcode_unautop,
+  # prepend_attachment... but we're only doing wpautop (for now)
+
   def wp_format(str)
     wpautop(str)
   end

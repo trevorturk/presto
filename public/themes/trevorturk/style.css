@@ -13,7 +13,7 @@ p {line-height:1.3em;}
 
 h1 {font-size:21px}
 h2 {font-size:21px}
-h1, h1 a, h2, h2 a {color:#000;}
+h1, h1 a, h2, h2 a {color:#111;}
 
 ol {list-style:decimal}
 ul {list-style:disc}
@@ -23,11 +23,13 @@ li {margin-left:15px}
 #header-left {background:#ddd;}
 #header-right {background:#999;}
 
-.post {margin-bottom:35px; padding-bottom:24px; border-bottom:1px solid #efefef;}
-.post_content pre {font-family: monospace; background:#f8f8ff; padding:6px; overflow:auto;}
-.post_content blockquote {margin:0 15px; padding-left:15px; border-left:1px solid #ddd;}
+#content {margin-top:55px;}
 
-#bio img {float:left; border:1px solid #efefef; padding:2px; margin-right:10px;}
-#bio p {font-family: monospace; line-height:1em; color:#444; margin-bottom:20px;}
+.post {margin-bottom:35px; padding-bottom:24px; border-bottom:1px solid #ddd;}
+.post pre {font-family: monospace; background:#f8f8ff; padding:6px; overflow:auto;}
+.post blockquote {margin:0 15px; padding-left:15px; border-left:1px solid #ddd;}
+
+#bio img {float:left; border:1px solid #ddd; padding:2px; margin-right:10px;}
+#bio p {font-family: monospace; line-height:1em; color:#444; margin-bottom:30px;}
 #icons {clear:both; text-align:center;}
 #icons img {width:32px;}

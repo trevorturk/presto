@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Trevor Turk</title>
-
-    <link href="/themes/trevorturk/stylesheets/app.css" media="screen" rel="stylesheet" type="text/css" />
+    <title>Trevor Turk<%= ": #{@posts.first.post_title}" if is_single? %></title>
+    <link href="/themes/trevorturk/style.css" media="screen" rel="stylesheet" type="text/css" />
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/trevorturk" />
-
     <link rel="openid.server" href="http://www.myopenid.com/server">
     <link rel="openid.delegate" href="http://trevorturk.myopenid.com/">
     <link rel="openid2.local_id" href="http://trevorturk.myopenid.com">
@@ -21,10 +19,8 @@
       <div id="content" class="grid_8">
         <% @posts.each do |post| %>
           <div class="post">
-            <h2><%= post.post_title %></h2>
-            <div class="post_content">
-              <%= wp_format post.post_content %>
-            </div>
+            <h2><%= link_to post %></h2>
+            <%= wp_format post.post_content %>
           </div>
         <% end %>
       </div><!-- content -->

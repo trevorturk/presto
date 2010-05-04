@@ -1,12 +1,12 @@
 require 'sinatra/base'
-
-require 'active_record'
 require 'erubis'
 
 require 'lib/models/active_record'
 require 'lib/helpers/wordpress'
 
 class App < Sinatra::Base
+
+  helpers WordPressHelpers
 
   configure do
     set :public, File.dirname(__FILE__) + '/public'
@@ -18,19 +18,31 @@ class App < Sinatra::Base
     ActiveRecord::Base.logger = Logger.new(STDOUT)
   end
 
-  helpers WordPressHelpers
-
   before do
     @options = Option.get_all # e.g. <%= @options['blogname'] %>
   end
 
   get '/' do
-    @posts = Post.published.recent.limit(@options['posts_per_page'])
-    erubis :index
+    if params[:p]
+      @posts = Post.published.find(params[:p]).to_a
+      erubis :index # TODO prefer single.erubis
+    else
+      @posts = Post.published.recent.limit(@options['posts_per_page'])
+      erubis :index
+    end
   end
-  
-  # TODO trailing slash optional? http://www.sinatrarb.com/faq.html#slash
-  
+
+  # common wp post routes:
+  # default: /?p=123 (above)
+  # day and name: /2010/05/04/sample-post/ (below)
+  # month and name: /2010/05/sample-post/ (TODO)
+  # numeric: /archives/123 (TODO)
+
+  get '/:year/:month/:day/:post_name/' do
+    @posts = Post.published.find_by_permalink!(params).to_a
+    erubis :index # TODO prefer single.erubis
+  end
+
   # TODO not found and errors
 
   # not_found do
