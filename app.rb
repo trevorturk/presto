@@ -1,12 +1,16 @@
 require 'sinatra/base'
 require 'erubis'
 
+require 'will_paginate'
+require 'will_paginate/view_helpers'
+require 'sinatra_more/markup_plugin'
+
 require 'lib/models/active_record'
 require 'lib/helpers/wordpress'
 
 class App < Sinatra::Base
-
-  helpers WordPressHelpers
+  register SinatraMore::MarkupPlugin # for will_paginate view helpers
+  helpers WordPressHelpers, WillPaginate::ViewHelpers
 
   configure do
     set :public, File.dirname(__FILE__) + '/public'
@@ -27,7 +31,7 @@ class App < Sinatra::Base
       @posts = Post.published.find(params[:p]).to_a
       erubis :index # TODO prefer single.erubis
     else
-      @posts = Post.published.recent.limit(@options['posts_per_page'])
+      @posts = Post.published.recent.all.paginate(:page => params[:page], :per_page => @options['posts_per_page'])
       erubis :index
     end
   end
@@ -37,6 +41,7 @@ class App < Sinatra::Base
   # day and name: /2010/05/04/sample-post/ (below)
   # month and name: /2010/05/sample-post/ (TODO)
   # numeric: /archives/123 (TODO)
+  # TODO catch (and redirect?) old page routes, e.g. /page/2/
 
   get '/:year/:month/:day/:post_name/' do
     @posts = Post.published.find_by_permalink!(params).to_a

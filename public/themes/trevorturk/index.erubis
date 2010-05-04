@@ -19,10 +19,11 @@
       <div id="content" class="grid_8">
         <% @posts.each do |post| %>
           <div class="post">
-            <h2><%= link_to post %></h2>
+            <h2><%= url_for post %></h2>
             <%= wp_format post.post_content %>
           </div>
         <% end %>
+        <%= will_paginate(@posts, :previous_label => 'Next page &raquo;', :next_label => '&laquo; Previous page', :page_links => false) unless is_single? %>
       </div><!-- content -->
       <div id="sidebar" class="grid_4">
         <h1><a href="/">Trevor Turk</a></h1>

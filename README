@@ -1,5 +1,5 @@
 # gems
-gem install activerecord erubis sinatra
+gem install activerecord erubis sinatra sinatra_more will_paginate
 
 # see also
 http://heroku.com
@@ -11,8 +11,7 @@ mysqldump -u USERNAME -p -h HOST DATABASE > dumpfile
 mysql -u USERNAME -p DATABASE < dumpfile
 
 # todo
-pagination
-comments on single post page
+show comments on single post page
 rss feed
 make tt heroku app
 move ae db to tt heroku app
@@ -20,6 +19,12 @@ redirect ae->tt w/ rack app (make ae heroku app)
 no-www for ae & tt
 
 # later
+allow new comments (w/ akismet support?)
 projects in sidebar
+search (google for now?)
+feedburner
+postrank top posts widget
+archives, recent posts
 deny access to erubis/rb files in public (or move themes out of public)
 make gem for routes and/or wp models (with tests)
+remove trailing slash?

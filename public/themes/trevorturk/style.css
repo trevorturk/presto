@@ -23,7 +23,7 @@ li {margin-left:15px}
 #header-left {background:#ddd;}
 #header-right {background:#999;}
 
-#content {margin-top:55px;}
+#content {margin-top:50px;}
 
 .post {margin-bottom:35px; padding-bottom:24px; border-bottom:1px solid #ddd;}
 .post pre {font-family: monospace; background:#f8f8ff; padding:6px; overflow:auto;}
@@ -33,3 +33,8 @@ li {margin-left:15px}
 #bio p {font-family: monospace; line-height:1em; color:#444; margin-bottom:30px;}
 #icons {clear:both; text-align:center;}
 #icons img {width:32px;}
+
+.pagination .disabled {display:none;}
+.prev_page, .next_page {margin-bottom:38px;}
+.prev_page {float:right;}
+.next_page {float:left;}
