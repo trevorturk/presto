@@ -38,7 +38,7 @@ class Presto < Sinatra::Base
   # numeric: /archives/123 (TODO)
   # TODO catch (and redirect?) old page routes, e.g. /page/2/
 
-  get '/:year/:month/:day/:post_name/' do
+  get '/:year/:month/:day/:post_name/?' do
     @posts = Post.published.find_by_permalink!(params).to_a
     erb :index # TODO prefer single.erubis
   end

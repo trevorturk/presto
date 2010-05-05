@@ -12,7 +12,7 @@ mysql -u USERNAME -p DATABASE < dumpfile
 
 # todo
 show comments on single post page
-rss feed
+feed at /feed/?
 make tt heroku app
 move ae db to tt heroku app
 redirect ae->tt w/ rack app (make ae heroku app)
@@ -27,6 +27,5 @@ postrank top posts widget
 archives, recent posts
 deny access to erubis/rb files in public (or move themes out of public)
 make gem for routes and/or wp models (with tests)
-remove trailing slash?
 google alerts instead of mint
 shut down asmallorange
