@@ -15,7 +15,10 @@ class Presto < Sinatra::Base
     ActiveRecord::Base.logger = Logger.new(STDOUT)
   end
 
-  helpers WordPressHelpers, WillPaginateHelpers
+  helpers do
+    include Rack::Utils, WordPressHelpers, WillPaginateHelpers
+    alias_method :h, :escape_html
+  end
 
   before do
     @options = Option.get_all # e.g. <%= @options['blogname'] %>
@@ -23,7 +26,7 @@ class Presto < Sinatra::Base
 
   get '/' do
     if params[:p]
-      @posts = Post.published.find(params[:p]).to_a
+      @posts = Post.published.find(params[:p], :include => :approved_comments).to_a
       erb :index # TODO prefer single.erubis
     else
       @posts = Post.published.recent.all.paginate(:page => params[:page], :per_page => @options['posts_per_page'])

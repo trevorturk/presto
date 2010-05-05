@@ -29,3 +29,4 @@ deny access to erubis/rb files in public (or move themes out of public)
 make gem for routes and/or wp models (with tests)
 google alerts instead of mint
 shut down asmallorange
+auto link urls in comments

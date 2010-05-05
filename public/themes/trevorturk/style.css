@@ -23,7 +23,7 @@ li {margin-left:15px}
 #header-left {background:#ddd;}
 #header-right {background:#999;}
 
-#content {margin-top:50px;}
+#content {margin-top:50px}
 
 .post {margin-bottom:35px; padding-bottom:24px; border-bottom:1px solid #ddd;}
 .post pre {font-family: monospace; background:#f8f8ff; padding:6px; overflow:auto;}
@@ -38,3 +38,9 @@ li {margin-left:15px}
 .prev_page, .next_page {margin-bottom:38px;}
 .prev_page {float:right;}
 .next_page {float:left;}
+
+.comments {margin-bottom:80px;}
+.comments h2 {padding-bottom:36px; margin-bottom:0; border-bottom:1px solid #ddd;}
+.comment {padding:24px 0; border-bottom:1px solid #ddd;}
+.comment_author {font-weight:bold; margin-bottom:21px;}
+.comment_author img {border:1px solid #ddd; padding:2px; margin-right:2px; vertical-align:middle;}

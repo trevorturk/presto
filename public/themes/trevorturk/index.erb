@@ -22,8 +22,9 @@
             <h2><a href="<%= post.to_param %>"><%= post %></a></h2>
             <%= wp_format post.post_content %>
           </div>
+          <%= partial(:comments, :comments => post.approved_comments) if is_single? %>
         <% end %>
-        <%= paginate(@posts) %>
+      <%= paginate(@posts) %>
       </div><!-- content -->
       <div id="sidebar" class="grid_4">
         <h1><a href="/">Trevor Turk</a></h1>

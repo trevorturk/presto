@@ -1,3 +1,5 @@
+require 'digest/md5' # for gravatars
+
 # TODO figure out how to not extend String with these methods
 class String
   def wp_stripslashes
@@ -16,12 +18,31 @@ module WordPressHelpers
 
   # TODO move this stuff into separate files
 
+  # general TODO move
+
+  def gravatar_url_for(email)
+    "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.downcase)}"
+  end
+
+  # http://stackoverflow.com/questions/2520546/sinatra-partial-with-data
+  def partial(template, locals = {})
+    erb(template, :layout => false, :locals => locals)
+  end
+
+  # http://github.com/lenary/ginatra/blob/master/lib/ginatra/helpers.rb
+  def simple_format(text)
+    text.gsub!(/ +/, " ")
+    text.gsub!(/\r\n?/, "\n")
+    text.gsub!(/\n/, "<br />\n")
+    text
+  end
+
   # conditional tags
   # http://codex.wordpress.org/Conditional_Tags
 
   # TODO take all the params they take
   def is_single?
-    @posts.size == 1
+    @posts.size == 1 # TODO this won't work if blog only showing 1 item...
   end
 
   # formatting

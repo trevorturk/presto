@@ -10,17 +10,24 @@ class Post < ActiveRecord::Base
   named_scope :published, :conditions => {:post_status => 'publish'}
   named_scope :recent, :order => 'post_date desc'
   named_scope :limit, lambda { |l| {:limit => l} }
+  has_many :comments,
+    :foreign_key => 'comment_post_ID', :order => 'comment_date asc'
+  has_many :approved_comments,
+    :foreign_key => 'comment_post_ID', :order => 'comment_date asc',
+    :class_name => 'Comment', :conditions => {:comment_approved => '1'}
 
   # TODO maybe there's a better way...?
   def self.find_by_permalink!(params)
     date = "#{params[:year]}-#{params[:month]}-#{params[:day]}"
-    all(:conditions => ["post_date > ? and post_date < ? and post_name = ?", "#{date}-00:00:00", "#{date}-24:00:00", params[:post_name]])
+    all(:include => :approved_comments, :conditions =>
+    ["post_date > ? and post_date < ? and post_name = ?",
+      "#{date}-00:00:00", "#{date}-24:00:00", params[:post_name]])
   end
-  
+
   def to_param
     "#{post_date.year}/#{post_date.month}/#{post_date.day}/#{post_name}/"
   end
-  
+
   def to_s
     post_title
   end
@@ -49,4 +56,10 @@ class Option < ActiveRecord::Base
     opts.each { |opt| @options[opt.option_name] = opt.option_value }
     @options
   end
+end
+
+class Comment < ActiveRecord::Base
+  set_table_name "wp_comments"
+  set_primary_key "comment_ID"
+  named_scope :approved, :conditions => {:comment_approved => '1'}
 end

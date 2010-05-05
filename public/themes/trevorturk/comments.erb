@@ -1,0 +1,18 @@
+<div class="comments">
+  <h2>Comments</h2>
+  <% comments.each do |comment| %>
+    <div class="comment">
+      <div class="comment_author">
+        <img src="<%= gravatar_url_for(comment.comment_author_email) %>?size=32" />
+        <% if comment.comment_author_url %>
+          <a href="<%=h comment.comment_author_url %>"><%=h comment.comment_author %></a>
+        <% else %>
+          <%=h comment.comment_author %>
+        <% end %>
+      </div><!-- comment_author -->
+      <div class="comment_content">
+        <%= simple_format(h(comment.comment_content)) %>
+      </div><!-- comment_content -->
+    </div><!-- comment -->
+  <% end %>
+</div><!-- comments -->
