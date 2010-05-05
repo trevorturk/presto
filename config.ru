@@ -1,2 +1,4 @@
-require 'app'
-run App.new
+require 'presto'
+require 'redirects'
+use Presto
+run Redirects

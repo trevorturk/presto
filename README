@@ -1,5 +1,5 @@
 # gems
-gem install activerecord erubis sinatra sinatra_more will_paginate
+gem install sinatra active_record will_paginate
 
 # see also
 http://heroku.com
@@ -28,3 +28,5 @@ archives, recent posts
 deny access to erubis/rb files in public (or move themes out of public)
 make gem for routes and/or wp models (with tests)
 remove trailing slash?
+google alerts instead of mint
+shut down asmallorange

@@ -1,4 +1,5 @@
 require 'active_record'
+require 'will_paginate'
 
 # TODO split these up into separate files
 
@@ -14,6 +15,14 @@ class Post < ActiveRecord::Base
   def self.find_by_permalink!(params)
     date = "#{params[:year]}-#{params[:month]}-#{params[:day]}"
     all(:conditions => ["post_date > ? and post_date < ? and post_name = ?", "#{date}-00:00:00", "#{date}-24:00:00", params[:post_name]])
+  end
+  
+  def to_param
+    "#{post_date.year}/#{post_date.month}/#{post_date.day}/#{post_name}/"
+  end
+  
+  def to_s
+    post_title
   end
 end
 

@@ -24,24 +24,6 @@ module WordPressHelpers
     @posts.size == 1
   end
 
-  # link helpers
-
-  def url_for_post(post)
-    date = post.post_date.strftime("%Y-%m-%d").split("-")
-    link = "#{date[0]}/#{date[1]}/#{date[2]}/#{post.post_name}/"
-    "<a href=\"#{link}\">#{post.post_title}</a>"
-  end
-
-  # TODO there's got to be a better way, also need to support pages, categories, etc
-  def url_for(item)
-    case item
-    when Post
-      url_for_post(item)
-    else
-      "/?#{Rack::Utils.build_query(item)}"
-    end
-  end
-
   # formatting
   # via http://codex.wordpress.org/How_WordPress_Processes_Post_Content
 
