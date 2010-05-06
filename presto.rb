@@ -25,28 +25,26 @@ class Presto < Sinatra::Base
   end
 
   get '/' do
-    if params[:p]
-      @posts = Post.published.find(params[:p], :include => :approved_comments).to_a
-      erb :index # TODO prefer single.erubis
-    else
-      @posts = Post.published.recent.all.paginate(:page => params[:page], :per_page => @options['posts_per_page'])
-      erb :index
-    end
+    @posts = Post.published.recent.all.paginate(:page => params[:page], :per_page => @options['posts_per_page'])
+    erb :index
   end
+
+  get '/:year/:month/:day/:post_name/' do
+    @posts = Post.published.find_by_permalink!(params).to_a
+    erb :index
+  end
+
+  # TODO
+
+  # prefer, for example, single.erb to index.erb if available for posts/show
 
   # common wp post routes:
-  # default: /?p=123 (above)
-  # day and name: /2010/05/04/sample-post/ (below)
-  # month and name: /2010/05/sample-post/ (TODO)
-  # numeric: /archives/123 (TODO)
-  # TODO catch (and redirect?) old page routes, e.g. /page/2/
+  # default: /?p=123 - @posts = Post.published.find(params[:p], :include => :approved_comments).to_a if params[:p]
+  # day and name: /2010/05/04/sample-post/ (done)
+  # month and name: /2010/05/sample-post/
+  # numeric: /archives/123
 
-  get '/:year/:month/:day/:post_name/?' do
-    @posts = Post.published.find_by_permalink!(params).to_a
-    erb :index # TODO prefer single.erubis
-  end
-
-  # TODO not found and errors
+  # catch (and redirect?) old page routes, e.g. /page/2/
 
   # not_found do
   #   erb :not_found

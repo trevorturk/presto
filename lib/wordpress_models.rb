@@ -1,8 +1,6 @@
 require 'active_record'
 require 'will_paginate'
 
-# TODO split these up into separate files
-
 class Post < ActiveRecord::Base
   set_table_name "wp_posts"
   set_primary_key "ID"
