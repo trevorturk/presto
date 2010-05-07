@@ -11,6 +11,7 @@ mysqldump -u USERNAME -p -h HOST DATABASE > dumpfile
 mysql -u USERNAME -p DATABASE < dumpfile
 
 # todo
+note that comments are disabled
 /feed/
 feedburner
 tt heroku app with ae db
@@ -19,9 +20,10 @@ no-www middleware for ae & tt
 
 # later
 shut down asmallorange
-allow new comments (w/ akismet support)
 projects in sidebar
 search (with google?)
+atompub or xmlrpc
+allow new comments (w/ akismet support)
 
 # maybe
 deny access to erb files in public
