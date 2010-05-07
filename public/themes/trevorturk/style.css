@@ -40,6 +40,7 @@ li {margin-left:15px}
 .next_page {float:left;}
 
 .comments {margin-bottom:80px;}
+.comments_note {font-family: monospace; color:#444; margin-top:37px;}
 .comments h2 {padding-bottom:36px; margin-bottom:0; border-bottom:1px solid #ddd;}
 .comment {padding:24px 0; border-bottom:1px solid #ddd;}
 .comment_author {font-weight:bold; margin-bottom:21px;}
