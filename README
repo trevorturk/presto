@@ -10,13 +10,23 @@ http://github.com/sickill/racksh
 mysqldump -u USERNAME -p -h HOST DATABASE > dumpfile
 mysql -u USERNAME -p DATABASE < dumpfile
 
-# todo
+# send remote mysql db to heroku to convert to postgres then get locally in sqlite3
+mate config/database.yml
+# make development db point to remote mysql db
+heroku db:push
+# make development db point to sqlite3
+heroku db:pull
+
+# todo...
+
+# now
 tt heroku app with ae db
 redirect ae to tt with ae heroku rack app
 no-www middleware for ae & tt
 feedburner
 tell planet rails
 put something in old ae feed
+put something in old tumblr feed
 
 # later
 page through old content and fix up and messed up posts
@@ -27,19 +37,15 @@ atompub or xmlrpc
 allow new comments (w/ akismet support)
 use wp_options for all hard-coded stuff
 
-# maybe
+# ideas
 deny access to erb files in public
 google alerts or rfrlz instead of mint
 archives, recent posts
 contributors (buddies like max, nick, etc)
 postrank top posts widget
 auto link urls in comments
-
-# perhaps
 http://github.com/bmizerany/sinatra-activerecord (mysql?)
 gemify presto
-
-# ideas
 prefer, for example, single.erb to index.erb if available for posts/show
 catch common wp post routes (/?p=123 etc)
 catch legacy page routes /page/2/
