@@ -7,15 +7,15 @@ http://github.com/rtomayko/shotgun
 http://github.com/sickill/racksh
 
 # get remote mysql db locally
+# consider deleting spam comments, emptying the trash, dropping unnecessary tables, etc
 mysqldump -u USERNAME -p -h HOST DATABASE > dumpfile
 mysql -u USERNAME -p DATABASE < dumpfile
 
-# send remote mysql db to heroku to convert to postgres then get locally in sqlite3
-mate config/database.yml
-# make development db point to remote mysql db
+# send remote mysql db to heroku to convert to postgres
+# you may have to fix some db errors, for example:
+# mysql> update wp_comments set comment_date_gmt = comment_date where comment_date_gmt is null;
+mate config/database.yml # make development db point to local mysql db
 heroku db:push
-# make development db point to sqlite3
-heroku db:pull
 
 # todo...
 
