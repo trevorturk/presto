@@ -1,5 +1,5 @@
 # gems
-gem install sinatra active_record will_paginate
+gem install sinatra activerecord will_paginate
 
 # see also
 http://heroku.com
