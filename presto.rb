@@ -1,10 +1,12 @@
 require 'sinatra/base'
 
-require 'lib/will_paginate_helpers.rb'
-require 'lib/wordpress_helpers.rb'
-require 'lib/wordpress_models.rb'
+require 'active_record'
+require 'will_paginate'
 
-class Presto < Sinatra::Base
+require 'lib/presto/models'
+require 'lib/presto/helpers'
+
+class Presto::App < Sinatra::Base
   configure do
     set :public, File.dirname(__FILE__) + '/public'
     set :views, File.dirname(__FILE__) + '/public/themes/trevorturk'
@@ -16,41 +18,26 @@ class Presto < Sinatra::Base
   end
 
   helpers do
-    include Rack::Utils, WordPressHelpers, WillPaginateHelpers
+    include Rack::Utils, Presto::Helpers
     alias_method :h, :escape_html
   end
 
   before do
-    @options = Option.get_all # e.g. <%= @options['blogname'] %>
+    @options = Presto::Option.get_all
   end
 
   get '/' do
-    @posts = Post.published.recent.all.paginate(:page => params[:page], :per_page => @options['posts_per_page'])
+    @posts = Presto::Post.published.recent.all.paginate(:page => params[:page], :per_page => @options['posts_per_page'])
     erb :index
+  end
+
+  get '/feed/' do
+    @posts = Presto::Post.published.recent.all(:limit => @options['posts_per_rss'])
+    erb :feed
   end
 
   get '/:year/:month/:day/:post_name/' do
-    @posts = Post.published.find_by_permalink!(params).to_a
+    @posts = Presto::Post.published.find_by_permalink!(params).to_a
     erb :index
   end
-
-  # TODO
-
-  # prefer, for example, single.erb to index.erb if available for posts/show
-
-  # common wp post routes:
-  # default: /?p=123 - @posts = Post.published.find(params[:p], :include => :approved_comments).to_a if params[:p]
-  # day and name: /2010/05/04/sample-post/ (done)
-  # month and name: /2010/05/sample-post/
-  # numeric: /archives/123
-
-  # catch (and redirect?) old page routes, e.g. /page/2/
-
-  # not_found do
-  #   erb :not_found
-  # end
-
-  # error do
-  #   erb :error
-  # end
 end

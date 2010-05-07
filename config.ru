@@ -1,4 +1,4 @@
 require 'presto'
 require 'redirects'
-use Presto
+use Presto::App
 run Redirects

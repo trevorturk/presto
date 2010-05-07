@@ -35,3 +35,10 @@ auto link urls in comments
 # perhaps
 http://github.com/bmizerany/sinatra-activerecord (mysql?)
 gemify presto
+
+# ideas
+prefer, for example, single.erb to index.erb if available for posts/show
+catch common wp post routes (/?p=123 etc)
+catch legacy page routes /page/2/
+catch not_found
+catch errors
