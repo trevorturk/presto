@@ -11,11 +11,12 @@ mysqldump -u USERNAME -p -h HOST DATABASE > dumpfile
 mysql -u USERNAME -p DATABASE < dumpfile
 
 # todo
-/feed/
-feedburner
 tt heroku app with ae db
 redirect ae to tt with ae heroku rack app
 no-www middleware for ae & tt
+feedburner
+tell planet rails
+put something in old ae feed
 
 # later
 page through old content and fix up and messed up posts
