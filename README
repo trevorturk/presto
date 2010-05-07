@@ -11,22 +11,26 @@ mysqldump -u USERNAME -p -h HOST DATABASE > dumpfile
 mysql -u USERNAME -p DATABASE < dumpfile
 
 # todo
-feed at /feed/?
-make tt heroku app
-move ae db to tt heroku app
-redirect ae->tt w/ rack app (make ae heroku app)
-no-www for ae & tt
+/feed/
+feedburner
+tt heroku app with ae db
+redirect ae to tt with ae heroku rack app
+no-www middleware for ae & tt
 
 # later
-allow new comments (w/ akismet support?)
-projects in sidebar
-search (google for now?)
-contributors (buddies like max, nick, etc)
-feedburner
-postrank top posts widget
-archives, recent posts
-deny access to erubis/rb files in public (or move themes out of public)
-make gem for routes and/or wp models (with tests)
-google alerts instead of mint
 shut down asmallorange
+allow new comments (w/ akismet support)
+projects in sidebar
+search (with google?)
+
+# maybe
+deny access to erb files in public
+google alerts or rfrlz instead of mint
+archives, recent posts
+contributors (buddies like max, nick, etc)
+postrank top posts widget
 auto link urls in comments
+
+# perhaps
+http://github.com/bmizerany/sinatra-activerecord (mysql?)
+gemify presto
