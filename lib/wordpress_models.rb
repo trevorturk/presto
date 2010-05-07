@@ -1,5 +1,5 @@
 require 'active_record'
-require 'will_paginate'
+require 'will_paginate' # for pagination
 
 class Post < ActiveRecord::Base
   set_table_name "wp_posts"
@@ -60,4 +60,13 @@ class Comment < ActiveRecord::Base
   set_table_name "wp_comments"
   set_primary_key "comment_ID"
   named_scope :approved, :conditions => {:comment_approved => '1'}
+
+  # TODO consider...?
+  # require 'rack/utils' # for html escaping comments
+  # automatically html escape comments, so themes don't have to worry about it
+  # %w(comment_author comment_author_email comment_author_url comment_content).each do |attr|
+  #   define_method attr do
+  #     Rack::Utils.escape_html read_attribute(attr) # TODO test this
+  #   end
+  # end
 end
