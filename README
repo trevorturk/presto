@@ -18,11 +18,13 @@ redirect ae to tt with ae heroku rack app
 no-www middleware for ae & tt
 
 # later
+page through old content and fix up and messed up posts
 shut down asmallorange
 projects in sidebar
 search (with google?)
 atompub or xmlrpc
 allow new comments (w/ akismet support)
+use wp_options for all hard-coded stuff
 
 # maybe
 deny access to erb files in public
