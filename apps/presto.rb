@@ -44,7 +44,7 @@ class Presto::App < Sinatra::Base
     erb :feed
   end
 
-  get 'test' do
+  get '/test/' do
     raise "Kaboom!"
   end
 
