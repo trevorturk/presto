@@ -49,11 +49,15 @@ class Presto::App < Sinatra::Base
     erb :feed
   end
 
+  get '/feed*' do
+    redirect '/feed/', 301 # redirect legacy wp /feed/rss2/ etc
+  end
+
   get '/hoptoad/' do
     raise "Kaboom!"
   end
 
-  # not_found do
-  #   redirect '/?not_found=1', 301
-  # end
+  not_found do
+    redirect '/?not_found=1', 301
+  end
 end
