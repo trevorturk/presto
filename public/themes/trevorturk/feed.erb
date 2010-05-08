@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://trevorturk.com/</id>
   <title>Trevor Turk</title>
@@ -11,13 +11,13 @@
   <% @posts.each do |post| %>
     <entry>
       <id>http://trevorturk.com/<%= post.to_param %></id>
-      <title><%= post.post_title %></title>
+      <title><title type="html"><![CDATA[<%= post.post_title %>]]></title></title>
       <updated><%= post.post_modified.xmlschema %></updated>
       <published><%= post.post_date.xmlschema %></published>
       <author>
         <name>Trevor Turk</name>
       </author>
-      <content type="html"><![CDATA[<%=wp_format post.post_content %>]]></content>
+      <content type="html" xml:base="http://trevorturk.com/<%= post.to_param %>"><![CDATA[<%=wp_format post.post_content %>]]></content>
       <link href="http://trevorturk.com/<%= post.to_param %>" />
     </entry>
   <% end %>
