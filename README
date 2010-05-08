@@ -23,9 +23,8 @@ heroku db:push
 
 # todo
 fix hoptoad
-shut down asmallorange
-sidebar: search, projects, search, buddies, postrank, archives, recent posts
-allow new comments (w/ akismet support)
+sidebar: search, projects, archive, recent, buddies, postrank
+allow new comments (w/ akismet)
 atompub or xmlrpc
 ---
 gemify
