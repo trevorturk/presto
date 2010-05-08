@@ -37,7 +37,7 @@ class Presto::App < Sinatra::Base
     erb :index
   end
 
-  get '/feed1/' do
+  get '/feed/' do
     @posts = Presto::Post.published.recent.all(:limit => @options['posts_per_rss'])
     erb :feed
   end
