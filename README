@@ -37,7 +37,7 @@ archives, recent posts
 contributors (buddies like max, nick, etc)
 postrank top posts widget
 auto link urls in comments
-http://github.com/bmizerany/sinatra-activerecord (mysql?)
+sinatra-activerecord gem works with mysql?
 gemify presto
 prefer, for example, single.erb to index.erb if available for posts/show
 catch common wp post routes (/?p=123 etc)
