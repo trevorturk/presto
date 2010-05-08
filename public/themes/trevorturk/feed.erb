@@ -17,7 +17,7 @@
       <author>
         <name>Trevor Turk</name>
       </author>
-      <content type="text/html" mode="escaped"><%=h wp_format(post.post_content) %></content>
+      <content type="html"><![CDATA[<%=wp_format post.post_content %>]]></content>
       <link href="http://trevorturk.com/<%= post.to_param %>" />
     </entry>
   <% end %>
