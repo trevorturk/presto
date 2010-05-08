@@ -12,14 +12,15 @@ HoptoadNotifier.configure do |config|
 end
 
 class Presto::App < Sinatra::Base
+
+  set :public, File.dirname(__FILE__) + '/../public'
+  set :views, File.dirname(__FILE__) + '/../public/themes/trevorturk'
+  set :logging, true
+
+  set :raise_errors, true
+  use HoptoadNotifier::Rack
+
   configure do
-    set :public, File.dirname(__FILE__) + '/../public'
-    set :views, File.dirname(__FILE__) + '/../public/themes/trevorturk'
-    set :logging, true
-
-    set :raise_errors, true
-    use HoptoadNotifier::Rack
-
     dbconfig = YAML.load(File.read('config/database.yml'))
     ActiveRecord::Base.establish_connection dbconfig[ENV['RACK_ENV']]
     ActiveRecord::Base.logger = Logger.new(STDOUT)
