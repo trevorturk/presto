@@ -28,6 +28,9 @@ allow new comments (w/ akismet)
 atompub or xmlrpc
 ---
 gemify
+don't extend String to wp_format
+improve will_paginate support
+come up with something better for is_single? and add more
 move feed outside of theme
 get post comments going through active record associations
 deny access to erb files in public

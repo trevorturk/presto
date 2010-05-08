@@ -1,6 +1,5 @@
-require 'digest/md5' # for gravatars
+require 'digest/md5' # gravatar_url_for
 
-# TODO don't do this
 class String
   def wp_stripslashes
     self.gsub(/\\(\'|\"|\\)/, '\1')
@@ -35,7 +34,7 @@ module Presto
       "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.downcase)}"
     end
 
-    # TODO match will_paginate?
+    # will_paginate
     def paginate(items, opts={})
       if items.respond_to?(:total_pages)
         html =  "<div class=\"pagination\">"
@@ -48,7 +47,7 @@ module Presto
 
     # http://codex.wordpress.org/Conditional_Tags
     def is_single?
-      @posts.size == 1 # TODO this won't work if blog only showing 1 item...
+      @posts.size == 1
     end
 
     def wp_format(str)
