@@ -2,6 +2,7 @@ require 'sinatra/base'
 
 require 'active_record'
 require 'will_paginate'
+require 'sinatra/toadhopper'
 
 require 'lib/presto/models'
 require 'lib/presto/helpers'
@@ -10,6 +11,7 @@ class Presto::App < Sinatra::Base
   configure do
     set :public, File.dirname(__FILE__) + '/../public'
     set :views, File.dirname(__FILE__) + '/../public/themes/trevorturk'
+    set :toadhopper, :api_key => ENV['hoptoad_key'], :filters => /password/ if ENV['hoptoad_key']
     set :logging, true
 
     dbconfig = YAML.load(File.read('config/database.yml'))
@@ -40,5 +42,18 @@ class Presto::App < Sinatra::Base
   get '/feed/' do
     @posts = Presto::Post.published.recent.all(:limit => @options['posts_per_rss'])
     erb :feed
+  end
+
+  get 'test' do
+    raise "Kaboom!"
+  end
+
+  not_found do
+    redirect '/?not_found=1', 301
+  end
+
+  error do
+    post_error_to_hoptoad!
+    'Sorry, there was an error'
   end
 end

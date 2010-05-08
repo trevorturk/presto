@@ -8,39 +8,33 @@ mate config/database.yml # configure db (can be remote mysql db)
 shotgun # to run app
 
 # get remote mysql db locally
-# consider deleting spam comments, emptying the trash, dropping unnecessary tables, etc
 mysqldump -u USERNAME -p -h HOST DATABASE > dumpfile
 mysql -u USERNAME -p DATABASE < dumpfile
 
 # send remote mysql db to heroku to convert to postgres
+# consider deleting spam comments, emptying the trash, dropping unnecessary tables, etc
 # you may have to fix some db errors, for example:
-# mysql> update wp_comments set comment_date_gmt = comment_date where comment_date_gmt is null;
-# consider deleting revisions of posts to keep db size down
-# mysql> delete from wp_posts where post_type = 'revision';
+mysql> update wp_comments set comment_date_gmt = comment_date where comment_date_gmt is null;
+# consider deleting revisions of posts to keep db size down:
+mysql> delete from wp_posts where post_type = 'revision';
 mate config/database.yml # make development db point to local mysql db
 heroku db:push
 # if the encoding is messed up, check out the "taps" gem docs, maybe you need to use "latin1"
 
 # todo
-page through old content and fix up and messed up posts
+catch not_found
+catch errors (toadhopper)
+fix and use wp_options for all hard-coded stuff
+sidebar: search, projects, search, buddies, postrank, archives, recent posts
 shut down asmallorange
-projects in sidebar
-search in sidebar
 allow new comments (w/ akismet support)
 atompub or xmlrpc
-use wp_options for all hard-coded stuff
+---
+gemify
 move feed outside of theme
-try to get post comments going through active record associations
+get post comments going through active record associations
 deny access to erb files in public
-google alerts or rfrlz instead of mint
-archives, recent posts
-contributors (buddies like max, nick, etc)
-postrank top posts widget
 auto link urls in comments
 sinatra-activerecord gem works with mysql?
-gemify presto
 prefer, for example, single.erb to index.erb if available for posts/show
-catch common wp post routes (/?p=123 etc)
-catch legacy page routes /page/2/
-catch not_found
-catch errors
+catch common wp post routes (/?p=123 etc) and legacy page routes /page/2/

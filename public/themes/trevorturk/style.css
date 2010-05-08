@@ -24,6 +24,7 @@ li {margin-left:15px}
 #header-right {background:#999;}
 
 #content {margin-top:50px}
+#message {font-family: monospace; background:#f8f8ff; padding:6px; margin-bottom:76px;}
 
 .post {margin-bottom:35px; padding-bottom:24px; border-bottom:1px solid #ddd;}
 .post pre {font-family: monospace; background:#f8f8ff; padding:6px; overflow:auto;}
