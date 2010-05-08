@@ -53,7 +53,7 @@ class Presto::App < Sinatra::Base
     raise "Kaboom!"
   end
 
-  not_found do
-    redirect '/?not_found=1', 301
-  end
+  # not_found do
+  #   redirect '/?not_found=1', 301
+  # end
 end
