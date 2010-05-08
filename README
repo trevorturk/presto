@@ -21,23 +21,13 @@ mate config/database.yml # make development db point to local mysql db
 heroku db:push
 # if the encoding is messed up, check out the "taps" gem docs, maybe you need to use "latin1"
 
-# todo...
-
-# now
-redirect ae to tt with ae heroku rack app
-no-www middleware for ae & tt
-force trailing slash
-once planet rails gets back, redirect old feedburner url
-
-# later
+# todo
 page through old content and fix up and messed up posts
 shut down asmallorange
 projects in sidebar
 search in sidebar
 allow new comments (w/ akismet support)
 atompub or xmlrpc
-
-# ideas
 use wp_options for all hard-coded stuff
 move feed outside of theme
 try to get post comments going through active record associations
