@@ -9,6 +9,7 @@ class Presto::App < Sinatra::Base
   configure do
     set :public, File.dirname(__FILE__) + '/../public'
     set :views, File.dirname(__FILE__) + '/../public/themes/trevorturk'
+    set :raise_errors, true
     set :logging, true
 
     dbconfig = YAML.load(File.read('config/database.yml'))
