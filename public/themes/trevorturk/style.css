@@ -34,7 +34,7 @@ li {margin-left:15px}
 #bio p {font-family: monospace; line-height:1em; color:#444; margin-bottom:30px;}
 #icons {clear:both; text-align:center;}
 #icons img {width:32px;}
-#formerly {font-family: monospace; color:#444; text-align:center; margin-top:22px;}
+#formerly {text-align:center; margin-top:20px;}
 
 .pagination .disabled {display:none;}
 .prev_page, .next_page {margin-bottom:38px;}
