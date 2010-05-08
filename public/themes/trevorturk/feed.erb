@@ -11,7 +11,7 @@
   <% @posts.each do |post| %>
     <entry>
       <id>http://trevorturk.com/<%= post.to_param %></id>
-      <title><title type="html"><![CDATA[<%= post.post_title %>]]></title></title>
+      <title type="html"><![CDATA[<%= post.post_title %>]]></title>
       <updated><%= post.post_modified.xmlschema %></updated>
       <published><%= post.post_date.xmlschema %></published>
       <author>
