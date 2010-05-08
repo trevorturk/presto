@@ -32,7 +32,7 @@ gemify
 move feed outside of theme
 get post comments going through active record associations
 deny access to erb files in public
-auto link urls in comments
+auto link urls in comments?
 sinatra-activerecord gem works with mysql?
 prefer, for example, single.erb to index.erb if available for posts/show
 catch common wp post routes (/?p=123 etc) and legacy page routes /page/2/
