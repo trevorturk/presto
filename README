@@ -23,27 +23,22 @@ heroku db:push
 # todo...
 
 # now
-check atom feed encoding
-tt heroku app with ae db
 redirect ae to tt with ae heroku rack app
 no-www middleware for ae & tt
-feedburner
-tell planet rails
-put something in old ae feed
-put something in old tumblr feed
+once planet rails gets back, redirect old feedburner url
 
 # later
-move feed outside of theme
-try to get post comments going through active record associations
 page through old content and fix up and messed up posts
 shut down asmallorange
 projects in sidebar
-search (with google?)
-atompub or xmlrpc
+search in sidebar
 allow new comments (w/ akismet support)
-use wp_options for all hard-coded stuff
+atompub or xmlrpc
 
 # ideas
+use wp_options for all hard-coded stuff
+move feed outside of theme
+try to get post comments going through active record associations
 deny access to erb files in public
 google alerts or rfrlz instead of mint
 archives, recent posts
