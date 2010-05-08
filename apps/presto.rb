@@ -16,12 +16,12 @@ class Presto::App < Sinatra::Base
     dbconfig = YAML.load(File.read('config/database.yml'))
     ActiveRecord::Base.establish_connection dbconfig[ENV['RACK_ENV']]
     ActiveRecord::Base.logger = Logger.new(STDOUT)
+  end
 
-    use HoptoadNotifier::Rack
-    enable :raise_errors
-    HoptoadNotifier.configure do |config|
-      config.api_key = ENV['hoptoad_key']
-    end
+  enable :raise_errors
+  use HoptoadNotifier::Rack
+  HoptoadNotifier.configure do |config|
+    config.api_key = ENV['hoptoad_key']
   end
 
   helpers do
@@ -49,15 +49,11 @@ class Presto::App < Sinatra::Base
     erb :feed
   end
 
-  get '/test/' do
+  get '/hoptoad/' do
     raise "Kaboom!"
   end
 
   not_found do
     redirect '/?not_found=1', 301
-  end
-
-  error do
-    'Sorry, there was an error'
   end
 end
