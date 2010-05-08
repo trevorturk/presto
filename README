@@ -1,10 +1,11 @@
-# gems
-gem install sinatra activerecord will_paginate
+# installation
+cat .gems # to see what gems are required
 
-# see also
-http://heroku.com
-http://github.com/rtomayko/shotgun
-http://github.com/sickill/racksh
+# local development
+gem install shotgun racksh
+cp config/database.example.yml config/database.yml
+mate config/database.yml # configure db (can be remote mysql db)
+shotgun # to run app
 
 # get remote mysql db locally
 # consider deleting spam comments, emptying the trash, dropping unnecessary tables, etc
@@ -25,6 +26,7 @@ heroku db:push
 # now
 redirect ae to tt with ae heroku rack app
 no-www middleware for ae & tt
+force trailing slash
 once planet rails gets back, redirect old feedburner url
 
 # later
