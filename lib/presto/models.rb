@@ -35,7 +35,7 @@ module Presto
     end
 
     def self.set(option_name, option_value)
-      find_by_option_name!(option_name).update_attribute('option_value', option_value)
+      find_or_create_by_option_name(option_name).update_attribute('option_value', option_value)
     end
 
     def self.get_all
