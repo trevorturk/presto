@@ -16,6 +16,7 @@ mysql -u USERNAME -p DATABASE < dumpfile
 # mysql> update wp_comments set comment_date_gmt = comment_date where comment_date_gmt is null;
 mate config/database.yml # make development db point to local mysql db
 heroku db:push
+# if the encoding is messed up, check out the "taps" gem docs, maybe you need to use "latin1"
 
 # todo...
 

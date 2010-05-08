@@ -15,7 +15,7 @@ module Presto
       date = "#{params[:year]}-#{params[:month]}-#{params[:day]}"
       all(:include => :approved_comments, :conditions =>
       ["post_date > ? and post_date < ? and post_name = ?",
-        "#{date}-00:00:00", "#{date}-24:00:00", params[:post_name]])
+        "#{date} 00:00:00", "#{date} 24:00:00", params[:post_name]])
     end
 
     def to_param
