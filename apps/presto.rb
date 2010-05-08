@@ -2,7 +2,6 @@ require 'sinatra/base'
 
 require 'active_record'
 require 'will_paginate'
-require 'hoptoad_notifier'
 
 require 'lib/presto/models'
 require 'lib/presto/helpers'
@@ -12,16 +11,11 @@ class Presto::App < Sinatra::Base
     set :public, File.dirname(__FILE__) + '/../public'
     set :views, File.dirname(__FILE__) + '/../public/themes/trevorturk'
     set :logging, true
+    set :raise_errors, true
 
     dbconfig = YAML.load(File.read('config/database.yml'))
     ActiveRecord::Base.establish_connection dbconfig[ENV['RACK_ENV']]
     ActiveRecord::Base.logger = Logger.new(STDOUT)
-  end
-
-  enable :raise_errors
-  use HoptoadNotifier::Rack
-  HoptoadNotifier.configure do |config|
-    config.api_key = ENV['hoptoad_key']
   end
 
   helpers do
@@ -50,7 +44,7 @@ class Presto::App < Sinatra::Base
   end
 
   get '/feed*' do
-    redirect '/feed/', 301 # redirect legacy wp /feed/rss2/ etc
+    redirect '/feed/', 301 # catch legacy wp feed routes (e.g. /feed/rss2/)
   end
 
   get '/hoptoad/' do
