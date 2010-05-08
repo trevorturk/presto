@@ -5,17 +5,11 @@ module Presto
     default_scope :conditions => {:post_type => 'post'}
     named_scope :published, :conditions => {:post_status => 'publish'}
     named_scope :recent, :order => 'post_date desc'
-    has_many :comments,
-      :foreign_key => 'comment_post_ID', :order => 'comment_date asc'
-    has_many :approved_comments,
-      :foreign_key => 'comment_post_ID', :order => 'comment_date asc',
-      :class_name => 'Comment', :conditions => {:comment_approved => '1'}
+    has_many :comments, :foreign_key => 'comment_post_ID', :order => 'comment_date asc'
 
     def self.find_by_permalink!(params)
       date = "#{params[:year]}-#{params[:month]}-#{params[:day]}"
-      all(:include => :approved_comments, :conditions =>
-      ["post_date > ? and post_date < ? and post_name = ?",
-        "#{date} 00:00:00", "#{date} 24:00:00", params[:post_name]])
+      all(:conditions => ["post_date > ? and post_date < ? and post_name = ?", "#{date} 00:00:00", "#{date} 24:00:00", params[:post_name]])
     end
 
     def to_param
@@ -56,5 +50,6 @@ module Presto
     set_table_name "wp_comments"
     set_primary_key "comment_ID"
     named_scope :approved, :conditions => {:comment_approved => '1'}
+    belongs_to :post, :foreign_key => 'comment_post_ID'
   end
 end

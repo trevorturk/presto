@@ -14,6 +14,8 @@ mysql -u USERNAME -p DATABASE < dumpfile
 # send remote mysql db to heroku to convert to postgres
 # you may have to fix some db errors, for example:
 # mysql> update wp_comments set comment_date_gmt = comment_date where comment_date_gmt is null;
+# consider deleting revisions of posts to keep db size down
+# mysql> delete from wp_posts where post_type = 'revision';
 mate config/database.yml # make development db point to local mysql db
 heroku db:push
 # if the encoding is messed up, check out the "taps" gem docs, maybe you need to use "latin1"
@@ -21,6 +23,7 @@ heroku db:push
 # todo...
 
 # now
+check atom feed encoding
 tt heroku app with ae db
 redirect ae to tt with ae heroku rack app
 no-www middleware for ae & tt

@@ -38,6 +38,7 @@ class Presto::App < Sinatra::Base
 
   get '/:year/:month/:day/:post_name/' do
     @posts = Presto::Post.published.find_by_permalink!(params).to_a
+    @comments = @posts.first.comments.approved
     erb :index
   end
 end
