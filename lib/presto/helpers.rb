@@ -35,6 +35,7 @@ module Presto
       "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.downcase)}"
     end
 
+    # TODO match will_paginate?
     def paginate(items, opts={})
       if items.respond_to?(:total_pages)
         html =  "<div class=\"pagination\">"

@@ -47,7 +47,7 @@ class Presto::App < Sinatra::Base
   end
 
   get '/hoptoad/' do
-    raise "Kaboom!"
+    raise "Kaboom!" # TODO get this working
   end
 
   not_found do

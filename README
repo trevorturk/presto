@@ -22,11 +22,9 @@ heroku db:push
 # if the encoding is messed up, check out the "taps" gem docs, maybe you need to use "latin1"
 
 # todo
-catch not_found
-catch errors (toadhopper)
-fix and use wp_options for all hard-coded stuff
-sidebar: search, projects, search, buddies, postrank, archives, recent posts
+fix hoptoad
 shut down asmallorange
+sidebar: search, projects, search, buddies, postrank, archives, recent posts
 allow new comments (w/ akismet support)
 atompub or xmlrpc
 ---
