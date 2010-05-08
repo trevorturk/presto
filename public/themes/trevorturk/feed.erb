@@ -17,7 +17,7 @@
       <author>
         <name>Trevor Turk</name>
       </author>
-      <content type="html"><%=h post.post_content %></content>
+      <content type="html"><%=wp_format h(post.post_content) %></content>
       <link href="http://trevorturk.com/<%= post.to_param %>" />
     </entry>
   <% end %>
