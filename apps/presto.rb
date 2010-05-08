@@ -1,17 +1,24 @@
 require 'sinatra/base'
-
 require 'active_record'
 require 'will_paginate'
 
 require 'lib/presto/models'
 require 'lib/presto/helpers'
 
+require 'hoptoad_notifier'
+
+HoptoadNotifier.configure do |config|
+  config.api_key = ENV['hoptoad_key']
+end
+
 class Presto::App < Sinatra::Base
   configure do
     set :public, File.dirname(__FILE__) + '/../public'
     set :views, File.dirname(__FILE__) + '/../public/themes/trevorturk'
     set :logging, true
+
     set :raise_errors, true
+    use HoptoadNotifier::Rack
 
     dbconfig = YAML.load(File.read('config/database.yml'))
     ActiveRecord::Base.establish_connection dbconfig[ENV['RACK_ENV']]
