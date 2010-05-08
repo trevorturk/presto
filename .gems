@@ -1,4 +1,4 @@
 sinatra --version 1.0
 activerecord --version 2.3.5
 will_paginate --version 2.3.12
-toadhopper-sinatra --version 1.0.2
+hoptoad_notifier --version 2.2.2

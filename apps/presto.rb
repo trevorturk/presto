@@ -2,7 +2,7 @@ require 'sinatra/base'
 
 require 'active_record'
 require 'will_paginate'
-require 'sinatra/toadhopper'
+require 'hoptoad_notifier'
 
 require 'lib/presto/models'
 require 'lib/presto/helpers'
@@ -11,12 +11,17 @@ class Presto::App < Sinatra::Base
   configure do
     set :public, File.dirname(__FILE__) + '/../public'
     set :views, File.dirname(__FILE__) + '/../public/themes/trevorturk'
-    set :toadhopper, :api_key => ENV['hoptoad_key'], :filters => /password/ if ENV['hoptoad_key']
     set :logging, true
 
     dbconfig = YAML.load(File.read('config/database.yml'))
     ActiveRecord::Base.establish_connection dbconfig[ENV['RACK_ENV']]
     ActiveRecord::Base.logger = Logger.new(STDOUT)
+
+    use HoptoadNotifier::Rack
+    enable :raise_errors
+    HoptoadNotifier.configure do |config|
+      config.api_key = ENV['hoptoad_key']
+    end
   end
 
   helpers do
@@ -53,7 +58,6 @@ class Presto::App < Sinatra::Base
   end
 
   error do
-    post_error_to_hoptoad!
     'Sorry, there was an error'
   end
 end
