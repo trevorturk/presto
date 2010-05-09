@@ -1,7 +1,7 @@
 namespace :heroku do
   desc "PostgreSQL database backups from Heroku to Amazon S3"
   task :backup do
-    begin
+    # begin
       require 'right_aws'
       puts "[#{Time.now}] heroku:backup started"
       name = "#{ENV['APP_NAME']}-#{Time.now.strftime('%Y-%m-%d-%H%M%S')}.dump"
@@ -12,10 +12,10 @@ namespace :heroku do
       bucket.put(name, open("tmp/#{name}"))
       system "rm tmp/#{name}"
       puts "[#{Time.now}] heroku:backup complete"
-    rescue Exception => e
-      require 'toadhopper'
-      Toadhopper(ENV['hoptoad_key']).post!(e)
-    end
+    # rescue Exception => e
+    #   require 'toadhopper'
+    #   Toadhopper(ENV['hoptoad_key']).post!(e)
+    # end
   end
 end
 
