@@ -12,7 +12,6 @@ namespace :heroku do
       bucket.put(name, open("tmp/#{name}"))
       system "rm tmp/#{name}"
       puts "[#{Time.now}] heroku:backup complete"
-      raise 'hello!'
     rescue Exception => e
       require 'toadhopper'
       Toadhopper(ENV['hoptoad_key']).post!(e)
