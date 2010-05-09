@@ -24,6 +24,7 @@ heroku db:push
 # todo
 fix hoptoad
 sidebar: search, projects, archive, recent, buddies, postrank
+favicon
 allow new comments (w/ akismet)
 atompub or xmlrpc
 ---
