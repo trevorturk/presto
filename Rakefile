@@ -1,6 +1,6 @@
 namespace :heroku do
   desc "PostgreSQL database backups from Heroku to Amazon S3"
-  task :backup => :environment do
+  task :backup do
     begin
       require 'right_aws'
       puts "[#{Time.now}] heroku:backup started"
@@ -19,6 +19,6 @@ namespace :heroku do
   end
 end
 
-task :cron => :environment do
+task :cron do
   Rake::Task['heroku:backup'].invoke
 end
