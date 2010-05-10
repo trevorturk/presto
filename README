@@ -28,6 +28,7 @@ allow new comments (w/ akismet)
 atompub or xmlrpc
 about, search, projects, archive, recent, buddies, postrank
 ---
+auto escape with erubis?
 serve 404 for not found
 don't extend String to wp_format
 improve will_paginate support

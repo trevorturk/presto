@@ -3,7 +3,7 @@ require 'lib/presto/models'
 require 'lib/presto/helpers'
 
 class Presto::App < Sinatra::Base
-  set :public, File.dirname(__FILE__) + '/public'
+  set :public, './public'
 
   helpers Presto::Helpers
 
@@ -46,6 +46,10 @@ class Presto::App < Sinatra::Base
   end
 
   error do
-    # ENV['hoptoad_key']
+    if ENV['hoptoad_key']
+      require 'toadhopper'
+      Toadhopper(ENV['hoptoad_key']).post!(env)
+    end
+    "Sorry, there was an error"
   end
 end
