@@ -24,7 +24,7 @@
             <h2><a href="<%= post.to_param %>"><%= post %></a></h2>
             <%=wp_format post.post_content %>
           </div><!-- post -->
-          <%= partial(:comments, :comments => @comments) if is_single? %>
+          <%= erb(:comments, :layout => false, :locals => {:comments => @comments}) if is_single? %>
         <% end %>
       <%= paginate @posts %>
       </div><!-- content -->

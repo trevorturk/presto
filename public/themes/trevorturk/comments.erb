@@ -4,15 +4,15 @@
     <% comments.each do |comment| %>
       <div class="comment">
         <div class="comment_author">
-          <img src="<%=gravatar_url_for comment.comment_author_email %>?size=32" />
+          <img src="<%=gravatar_url comment.comment_author_email %>?size=32" />
           <% if comment.comment_author_url %>
-            <a href="<%=h comment.comment_author_url %>"><%=h comment.comment_author %></a>
+            <a href="<%=escape_html comment.comment_author_url %>"><%=escape_html comment.comment_author %></a>
           <% else %>
-            <%=h comment.comment_author %>
+            <%=escape_html comment.comment_author %>
           <% end %>
         </div><!-- comment_author -->
         <div class="comment_content">
-          <%=simple_format h(comment.comment_content) %>
+          <%=simple_format escape_html(comment.comment_content) %>
         </div><!-- comment_content -->
       </div><!-- comment -->
     <% end %>

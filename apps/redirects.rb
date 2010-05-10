@@ -1,6 +1,4 @@
 class Redirects < Sinatra::Base
-  set :raise_errors, true
-
   get '/click/?' do
     redirect 'http://clickthatbutton.com/', 301
   end
