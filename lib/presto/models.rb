@@ -1,3 +1,6 @@
+require 'active_record'
+require 'will_paginate'
+
 module Presto
   class Post < ActiveRecord::Base
     set_table_name "wp_posts"

@@ -15,6 +15,7 @@ end
 
 module Presto
   module Helpers
+    include Rack::Utils
 
     # http://github.com/lenary/ginatra/blob/master/lib/ginatra/helpers.rb
     def simple_format(text)

@@ -1,16 +1,6 @@
-require 'apps/exceptions'
-require 'apps/presto'
-require 'apps/redirects'
-require 'apps/www'
-require 'rack/hoptoad'
-
-if ENV['RACK_ENV'] == 'development'
-  use Rack::ShowExceptions
-else
-  use Rack::PublicExceptionPage
-end
-
-use Rack::Hoptoad, ENV['hoptoad_key']
+require 'app'
+require 'lib/rack/redirects'
+require 'lib/rack/www'
 use WWW
 use Redirects
 run Presto::App

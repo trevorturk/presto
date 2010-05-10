@@ -1,16 +1,11 @@
 require 'sinatra/base'
-require 'active_record'
-require 'will_paginate'
 require 'lib/presto/models'
 require 'lib/presto/helpers'
 
 class Presto::App < Sinatra::Base
-  set :raise_errors, true
-  set :logging, true
-  set :public, File.dirname(__FILE__) + '/../public'
-  set :views, File.dirname(__FILE__) + '/../public/themes/trevorturk'
+  set :public, File.dirname(__FILE__) + '/public'
 
-  helpers Presto::Helpers, Rack::Utils
+  helpers Presto::Helpers
 
   configure do
     dbconfig = YAML.load(File.read('config/database.yml'))
@@ -48,5 +43,9 @@ class Presto::App < Sinatra::Base
 
   not_found do
     redirect '/?not_found=1', 302
+  end
+
+  error do
+    # ENV['hoptoad_key']
   end
 end
