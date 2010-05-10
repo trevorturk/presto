@@ -22,13 +22,13 @@ heroku db:push
 # if the encoding is messed up, check out the "taps" gem docs, maybe you need to use "latin1"
 
 # todo
-fix hoptoad
-sidebar: search, projects, archive, recent, buddies, postrank
+fix 500 error page
 favicon
 allow new comments (w/ akismet)
 atompub or xmlrpc
+about, search, projects, archive, recent, buddies, postrank
 ---
-gemify
+serve 404 for not found
 don't extend String to wp_format
 improve will_paginate support
 come up with something better for is_single? and add more
@@ -39,3 +39,4 @@ auto link urls in comments?
 sinatra-activerecord gem works with mysql?
 prefer, for example, single.erb to index.erb if available for posts/show
 catch common wp post routes (/?p=123 etc) and legacy page routes /page/2/
+gemify presto
