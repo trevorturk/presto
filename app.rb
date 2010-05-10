@@ -48,7 +48,7 @@ class Presto::App < Sinatra::Base
   error do
     if ENV['hoptoad_key']
       require 'toadhopper'
-      Toadhopper(ENV['hoptoad_key']).post!(env)
+      Toadhopper(ENV['hoptoad_key']).post!(env['sinatra.error'])
     end
     "Sorry, there was an error"
   end
