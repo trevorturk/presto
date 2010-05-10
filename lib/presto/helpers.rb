@@ -57,7 +57,7 @@ module Presto
     	allblocks = /(?:table|thead|tfoot|caption|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|select|form|blockquote|address|math|style|script|object|input|param|p|h[1-6])/
     	pee.gsub!(/(<#{allblocks}[^>]*>)/, "\n\\1")
     	pee.gsub!(/(<\/#{allblocks}>)/, "\\1\n\n")
-    	pee.gsub!("\r\n", "\n").gsub("\r", "\n") # cross-platform newlines
+    	pee = pee.gsub("\r\n", "\n").gsub("\r", "\n") # cross-platform newlines
     	pee.gsub!(/\n\n+/, "\n\n") # take care of duplicates
     	pee.gsub!(/<(script|style)[\000-\377]*?<\/\1>/) { |match| match.gsub("\n", "<WPPreserveNewline />") }
     	pee.gsub!(/\n?(.+?)(?:\n\s*\n|\z)/s, "<p>\\1</p>\n") # make paragraphs, including one at the end
