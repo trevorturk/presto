@@ -1,3 +1,4 @@
+require 'apps/exceptions'
 require 'apps/presto'
 require 'apps/redirects'
 require 'apps/www'
