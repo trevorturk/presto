@@ -23,8 +23,8 @@ class Presto::App < Sinatra::Base
     erb :index
   end
 
-  get '/:year/:month/:day/:post_name/' do
-    @posts = Presto::Post.published.find_by_permalink!(params).to_a
+  get '/:y/:m/:d/:slug/' do
+    @posts = Presto::Post.published.find_by_ymd_and_slug!(params).to_a
     @comments = Presto::Comment.approved.all :conditions => {:comment_post_ID => @posts.first.ID}, :order => 'comment_date asc'
     erb :index
   end

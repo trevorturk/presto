@@ -9,9 +9,11 @@ module Presto
     named_scope :published, :conditions => {:post_status => 'publish'}
     named_scope :recent, :order => 'post_date desc'
 
-    def self.find_by_permalink!(params)
-      date = "#{params[:year]}-#{params[:month]}-#{params[:day]}"
-      all(:conditions => ["post_date > ? and post_date < ? and post_name = ?", "#{date} 00:00:00", "#{date} 24:00:00", params[:post_name]])
+    def self.find_by_ymd_and_slug!(params)
+      date = "#{params[:y].to_i}-#{params[:m].to_i}-#{params[:d].to_i}"
+      post = first(:conditions => ["post_date > ? and post_date < ? and post_name = ?", "#{date} 00:00:00", "#{date} 24:00:00", params[:slug]])
+      raise Sinatra::NotFound unless post
+      post
     end
 
     def to_param
