@@ -11,6 +11,7 @@ module Presto
 
     def self.find_by_ymd_and_slug!(params)
       date = "#{params[:y].to_i}-#{params[:m].to_i}-#{params[:d].to_i}"
+      raise Sinatra::NotFound if date == '0-0-0'
       post = first(:conditions => ["post_date > ? and post_date < ? and post_name = ?", "#{date} 00:00:00", "#{date} 24:00:00", params[:slug]])
       raise Sinatra::NotFound unless post
       post
