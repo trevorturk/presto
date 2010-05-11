@@ -15,6 +15,7 @@ class Presto::App < Sinatra::Base
 
   before do
     @options = Presto::Option.get_all
+    redirect '/?not_found=1', 302 if params[:page] && params[:page].to_i == 0 # refuse bogus page #s
   end
 
   get '/' do
