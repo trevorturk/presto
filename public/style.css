@@ -24,7 +24,10 @@ li {margin-left:15px}
 #header_right {background:#999;}
 
 #content {margin-top:50px}
-#message {font-family: monospace; background:#f8f8ff; padding:6px; margin-bottom:76px;}
+#message {font-family:monospace; background:#f8f8ff; padding:6px 10px; margin-bottom:76px;}
+#info {font-family:monospace; background:#f8f8ff; padding:10px 10px 1px 11px; margin-bottom:76px;}
+#info h3 {font-size:14px; margin-bottom:6px;}
+#info li {list-style-type:none; margin:0; padding:3px 0 3px 6px;}
 
 .post {margin-bottom:35px; padding-bottom:24px; border-bottom:1px solid #ddd;}
 .post pre {font-family: monospace; background:#f8f8ff; padding:6px; overflow:auto;}
