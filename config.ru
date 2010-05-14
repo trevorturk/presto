@@ -9,7 +9,7 @@ HoptoadNotifier.configure do |config|
 end
 
 use HoptoadNotifier::Rack if ENV['hoptoad_key']
-# use Rack::PublicExceptionPage if ENV['RACK_ENV'] == 'production'
+use Rack::PublicExceptionPage if ENV['RACK_ENV'] == 'production'
 use WWW
 use Redirects
 run Presto::App
