@@ -3,6 +3,7 @@ require 'lib/presto/models'
 require 'lib/presto/helpers'
 
 class Presto::App < Sinatra::Base
+  set :raise_errors, true
   set :public, './public'
 
   helpers Presto::Helpers
@@ -44,13 +45,5 @@ class Presto::App < Sinatra::Base
 
   not_found do
     redirect '/?not_found=1', 302
-  end
-
-  error do
-    if ENV['hoptoad_key']
-      require 'toadhopper'
-      Toadhopper(ENV['hoptoad_key']).post!(env['sinatra.error'])
-    end
-    "Sorry, there was an error"
   end
 end

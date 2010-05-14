@@ -4,4 +4,4 @@ sinatra --version 1.0
 activerecord --version 2.3.5
 will_paginate --version 2.3.12
 right_aws --version 1.10.0
-toadhopper --version 1.0.3
+rack_hoptoad --version 0.1.3
