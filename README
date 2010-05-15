@@ -22,9 +22,8 @@ heroku db:push
 # if the encoding is messed up, check out the "taps" gem docs, maybe you need to use "latin1"
 
 # todo
-favicon
+admin
 allow new comments (w/ akismet)
-atompub or xmlrpc?
 about, search, projects, archive, recent, buddies, postrank
 ---
 auto escape with erubis?

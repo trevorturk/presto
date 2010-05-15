@@ -1,6 +1,6 @@
 # redirect www.* to non-www address
 # http://almosteffortless.com/2009/11/05/no-www-rack-middleware/
-class WWW
+class NoWWW
   STARTS_WITH_WWW = /^www\./i
 
   def initialize(app)

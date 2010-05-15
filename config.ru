@@ -1,14 +1,12 @@
 ENV['DATABASE_URL'] = 'postgresql://root@localhost/trevorturk'
-# local pg postgresql://root@localhost/trevorturk
-# local ae mysql://root@localhost/tturk_ae
-# local wp mysql://root@localhost:8889/wp_2_9_2
-# ActiveRecord::Base.logger = Logger.new(STDOUT)
 
-require 'lib/presto/app'
 require 'lib/presto/admin'
+require 'lib/presto/app'
+
 require 'lib/rack/exception'
 require 'lib/rack/redirects'
-require 'lib/rack/www'
+require 'lib/rack/no_www'
+
 require 'hoptoad_notifier'
 
 HoptoadNotifier.configure do |config|
@@ -16,9 +14,9 @@ HoptoadNotifier.configure do |config|
 end
 
 map '/' do
-  use Rack::PublicExceptionPage if ENV['RACK_ENV'] == 'production' # top middleware
+  use Rack::PublicExceptionPage if ENV['RACK_ENV'] == 'production'
   use HoptoadNotifier::Rack if ENV['hoptoad_key']
-  use WWW
+  use NoWWW
   use Redirects
   run Presto::App
 end

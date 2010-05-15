@@ -1,5 +1,4 @@
 # http://flowcoder.com/91
-
 module Rack
   # Returns a user-friendly exception page.
   # Should be included at the very top of the middleware pipeline so that unhandled

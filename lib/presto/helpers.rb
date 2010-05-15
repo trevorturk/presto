@@ -35,10 +35,9 @@ module Presto
 
     # http://codex.wordpress.org/How_WordPress_Processes_Post_Content
     def wp_format(str)
-      wpautop(str) # ...and we can add other filters here later
+      wpautop(str) # just this one for now...
     end
 
-    # http://codex.wordpress.org/How_WordPress_Processes_Post_Content
     def wpautop(pee, br=true)
     	pee += "\n\n" # just to make things a little easier, pad the end
     	pee.gsub!(/<br \/>\s*<br \/>/, "\n\n") # Space things out a little...

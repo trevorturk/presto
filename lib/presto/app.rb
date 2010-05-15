@@ -7,13 +7,12 @@ class Presto::App < Sinatra::Base
   set :raise_errors, true
   set :public, './public'
   set :views, './public/themes/trevorturk'
-  set :database, ENV['DATABASE_URL']
 
   helpers Presto::Helpers
 
   before do
     @options = Presto::Option.get_all
-    redirect '/?not_found=1', 302 if params[:page] && params[:page].to_i == 0 # refuse bogus page #s
+    redirect '/?not_found=1', 302 if params[:page] && params[:page].to_i == 0 # catch bogus page #s
   end
 
   get '/' do
