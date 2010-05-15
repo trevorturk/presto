@@ -1,17 +1,4 @@
-require 'digest/md5' # gravatar_url
-
-class String
-  def wp_stripslashes
-    self.gsub(/\\(\'|\"|\\)/, '\1')
-  end
-
-  def wp_cleanpre
-    tmp = self
-    tmp = tmp.gsub('<br />','')
-    tmp = tmp.gsub(/<p>/, "\n")
-    tmp.gsub('</p>','')
-  end
-end
+require 'digest/md5'
 
 module Presto
   module Helpers
@@ -46,8 +33,9 @@ module Presto
       @posts.size == 1
     end
 
+    # http://codex.wordpress.org/How_WordPress_Processes_Post_Content
     def wp_format(str)
-      wpautop(str)
+      wpautop(str) # ...and we can add other filters here later
     end
 
     # http://codex.wordpress.org/How_WordPress_Processes_Post_Content
@@ -81,7 +69,7 @@ module Presto
     	pee.gsub!(/(<\/?#{allblocks}[^>]*>)\s*<br \/>/, "\\1")
     	pee.gsub!(/<br \/>(\s*<\/?(?:p|li|div|dl|dd|dt|th|pre|td|ul|ol)[^>]*>)/, "\\1")
     	if /<pre/.match(pee)
-    	  pee.gsub!(/(<pre[^>]*>)([\000-\377]*?)<\/pre>/is) { |match| $1.wp_stripslashes + $2.wp_cleanpre.wp_stripslashes + '</pre>' };
+    	  pee.gsub!(/(<pre[^>]*>)([\000-\377]*?)<\/pre>/is) { |match| $1.delete('\\//') + $2.gsub('<br />','').gsub(/<p>/, "\n").gsub('</p>','').gsub(/\\(\'|\"|\\)/, '\1') + '</pre>' };
     	end
     	pee.gsub!(/\n<\/p>$/, '</p>')
     	pee.chop
