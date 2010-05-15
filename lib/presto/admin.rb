@@ -4,17 +4,12 @@ require 'lib/presto/helpers'
 
 class Presto::Admin < Sinatra::Base
   set :raise_errors, true
-  set :views, './views/admin'
+  set :views, './public/admin'
+  set :database, ENV['DATABASE_URL']
 
   helpers Presto::Helpers
 
-  configure do
-    dbconfig = YAML.load(File.read('config/database.yml'))
-    ActiveRecord::Base.establish_connection dbconfig[ENV['RACK_ENV']]
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
-  end
-
   get '/' do
-      'hello'
+    'hello'
   end
 end
