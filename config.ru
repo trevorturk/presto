@@ -1,4 +1,5 @@
-ENV['DATABASE_URL'] = 'postgresql://root@localhost/trevorturk' if ENV['RACK_ENV'] == 'development'
+# ENV['DATABASE_URL'] = 'postgresql://root@localhost/trevorturk' if ENV['RACK_ENV'] == 'development'
+ENV['DATABASE_URL'] = 'mysql://root@localhost/wp_2_9_2' if ENV['RACK_ENV'] == 'development'
 
 require 'lib/presto/admin'
 require 'lib/presto/app'

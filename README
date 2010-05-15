@@ -1,10 +1,8 @@
 # installation
-cat .gems # to see what gems are required
+gem install # everything in .gems
 
 # local development
 gem install shotgun racksh
-cp config/database.example.yml config/database.yml
-mate config/database.yml # configure db (can be remote mysql db)
 shotgun # to run app
 
 # get remote mysql db locally
@@ -12,14 +10,14 @@ mysqldump -u USERNAME -p -h HOST DATABASE > dumpfile
 mysql -u USERNAME -p DATABASE < dumpfile
 
 # send remote mysql db to heroku to convert to postgres
-# consider deleting spam comments, emptying the trash, dropping unnecessary tables, etc
-# you may have to fix some db errors, for example:
+# consider the following possible cleanup steps:
+mysql> delete from wp_posts where post_status != 'publish';
 mysql> update wp_comments set comment_date_gmt = comment_date where comment_date_gmt is null;
-# consider deleting revisions of posts to keep db size down:
 mysql> delete from wp_posts where post_type = 'revision';
-mate config/database.yml # make development db point to local mysql db
+mysql> delete from wp_comments where comment_approved = 'spam';
+# make db point to local mysql db
 heroku db:push
-# if the encoding is messed up, check out the "taps" gem docs, maybe you need to use "latin1"
+# if the encoding is messed up check out the "taps" gem docs, maybe you need to use "latin1"
 
 # todo
 admin

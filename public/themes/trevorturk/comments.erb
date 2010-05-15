@@ -1,5 +1,5 @@
 <div class="comments">
-  <% if comments.size > 0 %>
+  <% if comments && comments.size > 0 %>
     <h2>Comments</h2>
     <% comments.each do |comment| %>
       <div class="comment">
@@ -18,6 +18,6 @@
     <% end %>
   <% end %>
   <p class="comments_note">
-    Comments are temporarily disabled -- please use <a href="http://eldorado.heroku.com">this forum</a> instead.
+    Posting comments is disabled -- please use <a href="http://eldorado.heroku.com">this forum</a> instead.
   </p>
 </div><!-- comments -->

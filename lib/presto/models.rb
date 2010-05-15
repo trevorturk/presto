@@ -2,38 +2,29 @@ require 'active_record'
 require 'will_paginate'
 
 module Presto
-  class Post < ActiveRecord::Base
-    set_table_name "wp_posts"
-    set_primary_key "ID"
-    default_scope :conditions => {:post_type => 'post'}
-    named_scope :published, :conditions => {:post_status => 'publish'}
-    named_scope :recent, :order => 'post_date desc'
-
-    def self.find_by_ymd_and_slug!(params)
-      date = "#{params[:y].to_i}-#{params[:m].to_i}-#{params[:d].to_i}"
-      raise Sinatra::NotFound if date.split('-').include?('0')
-      post = first(:conditions => ["post_date > ? and post_date < ? and post_name = ?", "#{date} 00:00:00", "#{date} 24:00:00", params[:slug]])
-      raise Sinatra::NotFound unless post
-      post
-    end
-
-    def to_param
-      "#{post_date.year}/#{post_date.month}/#{post_date.day}/#{post_name}/"
-    end
-
-    def to_s
-      post_title
-    end
+  class Comment < ActiveRecord::Base
+    set_table_name "wp_comments"
+    set_primary_key 'comment_ID'
+    named_scope :approved, :conditions => {:comment_approved => '1'}
   end
 
-  class Page < Post
-    default_scope :conditions => {:post_type => 'page'}
-    named_scope :published, :conditions => {:post_status => 'publish'}
+  class Category < ActiveRecord::Base
+    set_table_name "wp_terms"
+    set_primary_key 'term_id'
+
+    has_one :term_taxonomy, :foreign_key => 'term_id'
+    has_many :term_relationships, :foreign_key => 'term_taxonomy_id'
+    has_many :posts, :through => :term_relationships, :foreign_key => 'term_taxonomy_id'
+
+    def self.default
+      id = Option.get('default_category')
+      find(id)
+    end
   end
 
   class Option < ActiveRecord::Base
     set_table_name "wp_options"
-    set_primary_key "option_id"
+    set_primary_key 'option_id'
 
     def self.get(option_name)
       find_by_option_name!(option_name).option_value
@@ -51,9 +42,98 @@ module Presto
     end
   end
 
-  class Comment < ActiveRecord::Base
-    set_table_name "wp_comments"
-    set_primary_key "comment_ID"
-    named_scope :approved, :conditions => {:comment_approved => '1'}
+  class Post < ActiveRecord::Base
+    set_table_name "wp_posts"
+    set_primary_key 'ID'
+    default_scope :conditions => {:post_type => 'post'}
+    named_scope :published, :conditions => {:post_status => 'publish'}
+    named_scope :recent, :order => 'post_date desc'
+
+    belongs_to :user, :foreign_key => 'post_author'
+    has_many :term_relationships, :foreign_key => 'object_id'
+    has_many :categories, :through => :term_relationships, :foreign_key => 'object_id'
+
+    validates_presence_of :user, :post_title, :post_content
+    before_validation :set_default_attributes
+    after_create :add_to_default_category
+
+    def set_default_attributes
+      self.post_name = Utils.parameterize(self.post_title)
+      self.post_date = self.post_date_gmt = self.post_modified = self.post_modified_gmt = Time.now.utc
+      self.guid = self.to_url
+    end
+
+    def add_to_default_category
+      default_category = Category.default
+      self.categories << default_category
+      default_category.term_taxonomy.increment!(:count)
+    end
+
+    before_destroy do
+      # after_destroy :remove_from_default_category
+      raise 'NotImplementedError'
+    end
+
+    def self.find_by_ymd_and_slug!(params)
+      date = "#{params[:y].to_i}-#{params[:m].to_i}-#{params[:d].to_i}"
+      raise Sinatra::NotFound if date.split('-').include?('0')
+      post = first(:conditions => ["post_date > ? and post_date < ? and post_name = ?", "#{date} 00:00:00", "#{date} 24:00:00", params[:slug]])
+      raise Sinatra::NotFound unless post
+      post
+    end
+
+    def to_param
+      "#{post_date.year}/#{post_date.month}/#{post_date.day}/#{post_name}/"
+    end
+
+    def to_url
+      "#{Option.get('home').chomp('/')}/#{to_param}"
+    end
+
+    def to_s
+      post_title
+    end
+  end
+
+  class Page < Post
+    default_scope :conditions => {:post_type => 'page'}
+    named_scope :published, :conditions => {:post_status => 'publish'}
+  end
+
+  class TermRelationship < ActiveRecord::Base
+    set_table_name "wp_term_relationships"
+    set_primary_key false
+
+    belongs_to :category, :foreign_key => 'term_taxonomy_id'
+    belongs_to :post, :foreign_key => 'object_id'
+  end
+
+  class TermTaxonomy < ActiveRecord::Base
+    set_table_name "wp_term_taxonomy"
+    set_primary_key 'term_taxonomy_id'
+
+    belongs_to :category, :foreign_key => 'term_id'
+  end
+
+  class User < ActiveRecord::Base
+    set_table_name "wp_users"
+    set_primary_key 'ID'
+
+    has_many :posts, :foreign_key => 'post_author'
+  end
+
+  module Utils
+    # http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html
+    def self.parameterize(string, sep = '-')
+      # parameterized_string = transliterate(string)
+      # parameterized_string.gsub!(/[^a-z0-9\-_\+]+/i, sep)
+      parameterized_string = string.gsub(/[^a-z0-9\-_\+]+/i, sep)
+      unless sep.blank?
+        re_sep = Regexp.escape(sep)
+        parameterized_string.gsub!(/#{re_sep}{2,}/, sep)
+        parameterized_string.gsub!(/^#{re_sep}|#{re_sep}$/i, '')
+      end
+      parameterized_string.downcase
+    end
   end
 end
