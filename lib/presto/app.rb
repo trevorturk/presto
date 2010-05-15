@@ -1,19 +1,15 @@
 require 'sinatra/base'
+require 'sinatra/activerecord'
 require 'lib/presto/models'
 require 'lib/presto/helpers'
 
 class Presto::App < Sinatra::Base
   set :raise_errors, true
   set :public, './public'
-  set :views, './views/themes/trevorturk'
+  set :views, './public/themes/trevorturk'
+  set :database, ENV['DATABASE_URL']
 
   helpers Presto::Helpers
-
-  configure do
-    dbconfig = YAML.load(File.read('config/database.yml'))
-    ActiveRecord::Base.establish_connection dbconfig[ENV['RACK_ENV']]
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
-  end
 
   before do
     @options = Presto::Option.get_all
