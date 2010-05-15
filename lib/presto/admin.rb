@@ -12,4 +12,8 @@ class Presto::Admin < Sinatra::Base
   get '/' do
     'hello'
   end
+
+  not_found do
+    redirect '/presto/?not_found=1', 302
+  end
 end
