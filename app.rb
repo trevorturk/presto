@@ -5,6 +5,7 @@ require 'lib/presto/helpers'
 class Presto::App < Sinatra::Base
   set :raise_errors, true
   set :public, './public'
+  set :views, './views/themes/trevorturk'
 
   helpers Presto::Helpers
 
