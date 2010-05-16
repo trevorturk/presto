@@ -57,15 +57,24 @@ module Presto
     has_many :term_relationships, :foreign_key => 'object_id' # note object_id may refer to a link, too
     has_many :categories, :through => :term_relationships
 
-    validates_presence_of :user, :post_title, :post_content
+    validates_presence_of :post_author, :post_title, :post_content
     before_validation_on_create :set_default_attributes
+    before_create :manually_autoincrement_id
     after_create :add_to_default_category
     after_destroy :remove_from_default_category
+
+    def manually_autoincrement_id
+      # ActiveRecord::StatementInvalid: PGError: ERROR:  null value in column "ID" violates not-null constraint
+      self.ID = Presto::Post.recent.first.ID.to_i + 1
+    end
 
     def set_default_attributes
       self.post_name = Utils.parameterize(self.post_title)
       self.post_date = self.post_date_gmt = self.post_modified = self.post_modified_gmt = Time.now.utc
       self.guid = self.to_url
+      # hacks for :null => false in db schema
+      self.post_excerpt = self.post_password = self.to_ping = self.pinged = self.post_content_filtered = self.post_mime_type = ''
+      self.post_parent = 0
     end
 
     def add_to_default_category
@@ -109,7 +118,7 @@ module Presto
 
   class TermRelationship < ActiveRecord::Base
     set_table_name "wp_term_relationships"
-    set_primary_key false
+    set_primary_key nil
 
     belongs_to :category, :foreign_key => 'term_taxonomy_id'
     belongs_to :post, :foreign_key => 'object_id'

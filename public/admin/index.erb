@@ -7,6 +7,22 @@
     <link rel="icon" type="image/png" href="/admin/favicon.ico">
   </head>
   <body>
-    <h1>Presto Admin</h1>
+    <div id="container" class="container_12">
+      <div id="content" class="grid_12">
+        <h1>Recent Posts</h1>
+        <ul>
+          <% @posts.each do |post| %>
+            <li><%= post %></li>
+          <% end if @posts %>
+        </ul>
+        <h1>New Post</h1>
+        <form method="post" action="/presto/posts">
+          <input id="post_author" name="post_author" type="hidden" value="1" />
+          <p><input id="post_title" name="post_title" type="text" size="30" /></p>
+          <p><textarea id="post_content" name="post_content" cols="40" rows="8"></textarea></p>
+          <p><input type="submit" name="submit" value="Post"></p>
+        </form>
+      </div><!-- content -->
+    </div><!-- container -->
   </body>
 </html>
