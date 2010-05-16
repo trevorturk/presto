@@ -10,7 +10,7 @@ mysqldump -u USERNAME -p -h HOST DATABASE > dumpfile
 mysql -u USERNAME -p DATABASE < dumpfile
 
 # send remote mysql db to heroku to convert to postgres
-# consider the following possible cleanup steps:
+# consider the following possible cleanup steps first:
 mysql> delete from wp_posts where post_status != 'publish';
 mysql> update wp_comments set comment_date_gmt = comment_date where comment_date_gmt is null;
 mysql> delete from wp_posts where post_type = 'revision';
@@ -21,19 +21,18 @@ heroku db:push
 
 # todo
 admin
+Presto::Post.create!(:user => Presto::User.first, :post_title => 'Test Post', :post_content => 'testing')
 allow new comments (w/ akismet)
 about, search, projects, archive, recent, buddies, postrank
 ---
-auto escape with erubis?
+auto escape with erubis
 serve 404 for not found
-don't extend String to wp_format
-improve will_paginate support
+improve will_paginate helper
 come up with something better for is_single? and add more
 move feed outside of theme
-get post comments going through active record associations
+get post comments going through active record associations (table capitalization problem?)
 deny access to erb files in public
 auto link urls in comments?
-sinatra-activerecord gem works with mysql?
 prefer, for example, single.erb to index.erb if available for posts/show
 catch common wp post routes (/?p=123 etc) and legacy page routes /page/2/
 gemify presto

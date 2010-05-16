@@ -1,6 +1,7 @@
 require 'active_record'
 require 'will_paginate'
 
+# http://codex.wordpress.org/Database_Description
 module Presto
   class Comment < ActiveRecord::Base
     set_table_name "wp_comments"
@@ -11,6 +12,9 @@ module Presto
   class Category < ActiveRecord::Base
     set_table_name "wp_terms"
     set_primary_key 'term_id'
+
+    # polymorphic :( -- object_id can refer to a post or a link
+    default_scope :joins => :term_taxonomy, :conditions => "wp_term_taxonomy.taxonomy = 'category'"
 
     has_one :term_taxonomy, :foreign_key => 'term_id'
     has_many :term_relationships, :foreign_key => 'term_taxonomy_id'
@@ -50,12 +54,13 @@ module Presto
     named_scope :recent, :order => 'post_date desc'
 
     belongs_to :user, :foreign_key => 'post_author'
-    has_many :term_relationships, :foreign_key => 'object_id'
-    has_many :categories, :through => :term_relationships, :foreign_key => 'object_id'
+    has_many :term_relationships, :foreign_key => 'object_id' # note object_id may refer to a link, too
+    has_many :categories, :through => :term_relationships
 
     validates_presence_of :user, :post_title, :post_content
-    before_validation :set_default_attributes
+    before_validation_on_create :set_default_attributes
     after_create :add_to_default_category
+    after_destroy :remove_from_default_category
 
     def set_default_attributes
       self.post_name = Utils.parameterize(self.post_title)
@@ -69,9 +74,11 @@ module Presto
       default_category.term_taxonomy.increment!(:count)
     end
 
-    before_destroy do
-      # after_destroy :remove_from_default_category
-      raise 'NotImplementedError'
+    def remove_from_default_category
+      self.categories = [] # doing it manually, but shoudn't have to...?
+      self.save
+      default_category = Category.default
+      default_category.term_taxonomy.decrement!(:count)
     end
 
     def self.find_by_ymd_and_slug!(params)
@@ -120,6 +127,7 @@ module Presto
     set_primary_key 'ID'
 
     has_many :posts, :foreign_key => 'post_author'
+    has_many :pages, :foreign_key => 'post_author'
   end
 
   module Utils
