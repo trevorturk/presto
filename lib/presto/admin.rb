@@ -15,12 +15,17 @@ class Presto::Admin < Sinatra::Base
   end
 
   get '/' do
-    @posts = Presto::Post.published.recent.all(:limit => 15)
+    @posts = Presto::Post.published.recent.all(:limit => 10)
     erb :index
   end
 
   post '/posts' do
     Presto::Post.create!(:post_author => params[:post_author], :post_title => params[:post_title], :post_content => params[:post_content])
+    redirect back
+  end
+
+  post '/posts/destroy/:id' do
+    Presto::Post.find(params[:id]).destroy
     redirect back
   end
 end

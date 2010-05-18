@@ -9,22 +9,22 @@ module Presto
     named_scope :approved, :conditions => {:comment_approved => '1'}
   end
 
-  class Category < ActiveRecord::Base
-    set_table_name "wp_terms"
-    set_primary_key 'term_id'
-
-    # polymorphic :( -- object_id can refer to a post or a link
-    default_scope :joins => :term_taxonomy, :conditions => "wp_term_taxonomy.taxonomy = 'category'"
-
-    has_one :term_taxonomy, :foreign_key => 'term_id'
-    has_many :term_relationships, :foreign_key => 'term_taxonomy_id'
-    has_many :posts, :through => :term_relationships, :foreign_key => 'term_taxonomy_id'
-
-    def self.default
-      id = Option.get('default_category')
-      find(id)
-    end
-  end
+  # class Category < ActiveRecord::Base
+  #   set_table_name "wp_terms"
+  #   set_primary_key 'term_id'
+  #
+  #   # polymorphic :( -- object_id can refer to a post or a link
+  #   default_scope :joins => :term_taxonomy, :conditions => "wp_term_taxonomy.taxonomy = 'category'"
+  #
+  #   has_one :term_taxonomy, :foreign_key => 'term_id'
+  #   has_many :term_relationships, :foreign_key => 'term_taxonomy_id'
+  #   has_many :posts, :through => :term_relationships, :foreign_key => 'term_taxonomy_id'
+  #
+  #   def self.default
+  #     id = Option.get('default_category')
+  #     find(id)
+  #   end
+  # end
 
   class Option < ActiveRecord::Base
     set_table_name "wp_options"
@@ -54,16 +54,17 @@ module Presto
     named_scope :recent, :order => 'post_date desc'
 
     belongs_to :user, :foreign_key => 'post_author'
-    has_many :term_relationships, :foreign_key => 'object_id' # note object_id may refer to a link, too
-    has_many :categories, :through => :term_relationships
+    # has_many :term_relationships, :foreign_key => 'object_id' # note object_id may refer to a link, too
+    # has_many :categories, :through => :term_relationships
 
     validates_presence_of :post_author, :post_title, :post_content
     before_validation_on_create :set_default_attributes
     before_create :manually_autoincrement_id
-    after_create :add_to_default_category
-    after_destroy :remove_from_default_category
+    # after_create :add_to_default_category
+    # after_destroy :remove_from_default_category
 
     def manually_autoincrement_id
+      # no idea why this is necessary
       # ActiveRecord::StatementInvalid: PGError: ERROR:  null value in column "ID" violates not-null constraint
       self.ID = Presto::Post.recent.first.ID.to_i + 1
     end
@@ -77,18 +78,18 @@ module Presto
       self.post_parent = 0
     end
 
-    def add_to_default_category
-      default_category = Category.default
-      self.categories << default_category
-      default_category.term_taxonomy.increment!(:count)
-    end
+    # def add_to_default_category
+    #   default_category = Category.default
+    #   self.categories << default_category
+    #   default_category.term_taxonomy.increment!(:count)
+    # end
 
-    def remove_from_default_category
-      self.categories = [] # doing it manually, but shoudn't have to...?
-      self.save
-      default_category = Category.default
-      default_category.term_taxonomy.decrement!(:count)
-    end
+    # def remove_from_default_category
+    #   self.categories = [] # doing it manually, but shoudn't have to...?
+    #   self.save
+    #   default_category = Category.default
+    #   default_category.term_taxonomy.decrement!(:count)
+    # end
 
     def self.find_by_ymd_and_slug!(params)
       date = "#{params[:y].to_i}-#{params[:m].to_i}-#{params[:d].to_i}"
@@ -111,32 +112,32 @@ module Presto
     end
   end
 
-  class Page < Post
-    default_scope :conditions => {:post_type => 'page'}
-    named_scope :published, :conditions => {:post_status => 'publish'}
-  end
+  # class Page < Post
+  #   default_scope :conditions => {:post_type => 'page'}
+  #   named_scope :published, :conditions => {:post_status => 'publish'}
+  # end
 
-  class TermRelationship < ActiveRecord::Base
-    set_table_name "wp_term_relationships"
-    set_primary_key nil
+  # class TermRelationship < ActiveRecord::Base
+  #   set_table_name "wp_term_relationships"
+  #   set_primary_key nil
+  #
+  #   belongs_to :category, :foreign_key => 'term_taxonomy_id'
+  #   belongs_to :post, :foreign_key => 'object_id'
+  # end
 
-    belongs_to :category, :foreign_key => 'term_taxonomy_id'
-    belongs_to :post, :foreign_key => 'object_id'
-  end
-
-  class TermTaxonomy < ActiveRecord::Base
-    set_table_name "wp_term_taxonomy"
-    set_primary_key 'term_taxonomy_id'
-
-    belongs_to :category, :foreign_key => 'term_id'
-  end
+  # class TermTaxonomy < ActiveRecord::Base
+  #   set_table_name "wp_term_taxonomy"
+  #   set_primary_key 'term_taxonomy_id'
+  #
+  #   belongs_to :category, :foreign_key => 'term_id'
+  # end
 
   class User < ActiveRecord::Base
     set_table_name "wp_users"
     set_primary_key 'ID'
 
-    has_many :posts, :foreign_key => 'post_author'
-    has_many :pages, :foreign_key => 'post_author'
+    # has_many :posts, :foreign_key => 'post_author'
+    # has_many :pages, :foreign_key => 'post_author'
   end
 
   module Utils
