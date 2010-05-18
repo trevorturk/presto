@@ -21,7 +21,7 @@ end
 
 task :cron do
   Rake::Task['heroku:backup'].invoke
-  Rake::Task['delicious'].invoke if Time.now.wday == 0 # sunday
+  # Rake::Task['delicious'].invoke if Time.now.wday == 0 # sunday
 end
 
 task :delicious do
