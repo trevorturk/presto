@@ -20,10 +20,9 @@ heroku db:push
 # if the encoding is messed up check out the "taps" gem docs, maybe you need to use "latin1"
 
 # todo
-admin
-Presto::Post.create!(:user => Presto::User.first, :post_title => 'Test Post', :post_content => 'testing')
+give up on wordpress database structure?
 allow new comments (w/ akismet)
-about, search, projects, archive, recent, buddies, postrank
+about, search, archive, recent, buddies, postrank
 ---
 auto escape with erubis
 serve 404 for not found
