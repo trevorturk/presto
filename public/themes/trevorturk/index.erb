@@ -28,7 +28,11 @@
           </div><!-- post -->
           <%= erb(:comments, :layout => false, :locals => {:comments => @comments}) if is_single? %>
         <% end %>
-      <%= paginate @posts %>
+      <% if is_single? %>
+        <div class="home_link"><pre><a href="/">&laquo; Home page</a></pre></div>
+      <% else %>
+        <%= paginate @posts %>
+      <% end %>
       </div><!-- content -->
       <div id="sidebar" class="grid_4">
         <%= erb(:sidebar, :layout => false, :locals => {:options => @options}) %>

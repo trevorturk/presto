@@ -32,6 +32,7 @@ li {margin-left:15px}
 .post {margin-bottom:35px; padding-bottom:24px; border-bottom:1px solid #ddd;}
 .post pre {font-family: monospace; background:#f8f8ff; padding:6px; overflow:auto;}
 .post blockquote {margin:0 15px; padding-left:15px; border-left:1px solid #ddd;}
+.gist {font-size:13px;}
 
 #bio img {float:left; border:1px solid #ddd; padding:2px; margin-right:10px;}
 #bio p {font-family: monospace; line-height:1em; color:#444; margin-bottom:30px;}
@@ -43,6 +44,7 @@ li {margin-left:15px}
 .prev_page, .next_page {margin-bottom:38px;}
 .prev_page {float:right;}
 .next_page {float:left;}
+.home_link {margin:-46px 0 38px 0;}
 
 .comments {margin-bottom:80px;}
 .comments_note {font-family: monospace; color:#444; margin-top:37px;}
