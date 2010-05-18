@@ -6,3 +6,6 @@ sinatra-activerecord --version 0.1.2
 will_paginate --version 2.3.12
 right_aws --version 1.10.0
 hoptoad_notifier --version 2.2.2
+restclient --version 1.4.2
+json --version 1.2.4
+pony --version 1.0

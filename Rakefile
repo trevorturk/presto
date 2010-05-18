@@ -21,4 +21,37 @@ end
 
 task :cron do
   Rake::Task['heroku:backup'].invoke
+  Rake::Task['delicious'].invoke if Time.now.wday == 0 # sunday
+end
+
+task :delicious do
+  require 'rubygems'
+  require 'restclient'
+  require 'json'
+  require 'pony'
+
+  req = RestClient.get 'http://feeds.delicious.com/v2/json/trevorturk?count=100'
+  links = JSON.parse(req.body)
+  body = ''
+
+  links.each do |l|
+    body << "<p><a href=\"#{l['u']}\">#{l['d']}</a></p>\n"
+    body << "<blockquote><p>#{l['n']}</p></blockquote>\n\n"
+  end
+
+  Pony.mail(:to => 'trevorturk@gmail.com',
+    :from => 'weekly-digest@trevorturk.com',
+    :subject => "Weekly Digest #{Time.now.strftime('%b-%d-%y')}",
+    :body => body,
+    :via => :smtp,
+    :via_options =>
+    {
+      :address        => 'smtp.sendgrid.net',
+      :port           => '25',
+      :authentication => :plain,
+      :user_name      => ENV['SENDGRID_USERNAME'],
+      :password       => ENV['SENDGRID_PASSWORD'],
+      :domain         => ENV['SENDGRID_DOMAIN']
+    }
+  )
 end
