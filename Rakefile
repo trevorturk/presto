@@ -26,7 +26,7 @@ end
 
 task :delicious do
   require 'rubygems'
-  require 'restclient'
+  require 'rest_client'
   require 'json'
   require 'pony'
 
