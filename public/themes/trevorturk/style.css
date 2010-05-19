@@ -28,6 +28,9 @@ li {margin-left:15px}
 #info {font-family:monospace; background:#f8f8ff; padding:10px 10px 1px 11px; margin-bottom:76px;}
 #info h3 {font-size:14px; margin-bottom:6px;}
 #info li {list-style-type:none; margin:0; padding:3px 0 3px 6px;}
+#info-more-link {text-align:center;}
+#info-more-link a {text-decoration:none;}
+#info-more-link a:hover {text-decoration:underline;}
 
 .post {margin-bottom:35px; padding-bottom:24px; border-bottom:1px solid #ddd;}
 .post pre {font-family: monospace; background:#f8f8ff; padding:6px; overflow:auto;}
