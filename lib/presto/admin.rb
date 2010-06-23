@@ -14,6 +14,10 @@ class Presto::Admin < Sinatra::Base
     end
   end
 
+  before do
+    @options = Presto::Option.get_all
+  end
+
   get '/' do
     @posts = Presto::Post.published.recent.all(:limit => 10)
     erb :index
@@ -22,6 +26,20 @@ class Presto::Admin < Sinatra::Base
   post '/posts' do
     Presto::Post.create!(:post_author => params[:post_author], :post_title => params[:post_title], :post_content => params[:post_content])
     redirect back
+  end
+
+  get '/posts/edit/:id' do
+    @post = Presto::Post.find(params[:id])
+    erb :show
+  end
+
+  post '/posts/edit/' do
+    @post = Presto::Post.find(params[:post_id])
+    @post.post_author = params[:post_author]
+    @post.post_title = params[:post_title]
+    @post.post_content = params[:post_content]
+    @post.save!
+    redirect '/presto/'
   end
 
   post '/posts/destroy/:id' do

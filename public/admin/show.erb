@@ -1,0 +1,8 @@
+<h1>Edit Post</h1>
+<form method="post" action="/presto/posts/edit/">
+  <input id="post_id" name="post_id" type="hidden" value="<%= @post.id %>" />
+  <input id="post_author" name="post_author" type="hidden" value="<%= @post.post_author %>" />
+  <p><input id="post_title" name="post_title" type="text" size="30" value="<%= @post.post_title %>" /></p>
+  <p><textarea id="post_content" name="post_content" cols="40" rows="8"><%= @post.post_content %></textarea></p>
+  <p><input type="submit" name="submit" value="Save changes"></p>
+</form>

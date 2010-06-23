@@ -28,7 +28,7 @@ task :delicious do
   require 'rubygems'
   require 'rest_client'
   require 'json'
-  require 'pony'
+  # require 'pony'
 
   req = RestClient.get 'http://feeds.delicious.com/v2/json/trevorturk?count=100'
   links = JSON.parse(req.body)
