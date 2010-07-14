@@ -19,7 +19,7 @@ class Presto::Admin < Sinatra::Base
   end
 
   get '/' do
-    @posts = Presto::Post.published.recent.all(:limit => 10)
+    @posts = Presto::Post.published.recent.all
     erb :index
   end
 
