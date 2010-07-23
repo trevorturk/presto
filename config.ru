@@ -11,12 +11,12 @@ require 'lib/rack/no_www'
 require 'hoptoad_notifier'
 
 HoptoadNotifier.configure do |config|
-  config.api_key = ENV['hoptoad_key']
+  config.api_key = ENV['HOPTOAD_API_KEY']
 end
 
 map '/' do
   use Rack::PublicExceptionPage if ENV['RACK_ENV'] == 'production'
-  use HoptoadNotifier::Rack if ENV['hoptoad_key']
+  use HoptoadNotifier::Rack if ENV['HOPTOAD_API_KEY']
   use NoWWW
   use Redirects
   run Presto::App
