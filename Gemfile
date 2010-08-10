@@ -1,3 +1,5 @@
+source 'http://rubygems.org/'
+
 gem 'sinatra', '1.0'
 gem 'activerecord', '2.3.8'
 gem 'sinatra-activerecord', '0.1.2'
