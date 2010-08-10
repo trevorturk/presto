@@ -35,6 +35,10 @@ class Presto::App < Sinatra::Base
     redirect '/feed/', 301 # catch legacy wp feed routes (e.g. /feed/rss2/)
   end
 
+  get '/resume/' do
+    erb :resume
+  end
+
   get '/hoptoad/' do
     raise "Kaboom!"
   end
