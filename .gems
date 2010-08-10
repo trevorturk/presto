@@ -1,6 +1,6 @@
-sinatra -v1.0
-activerecord -v2.3.8
-sinatra-activerecord -v0.1.2
-pg -v0.9.0
-will_paginate -v2.3.14
-hoptoad_notifier -v2.3.3
+sinatra -v 1.0
+activerecord -v 2.3.8
+sinatra-activerecord -v 0.1.2
+pg -v 0.9.0
+will_paginate -v 2.3.14
+hoptoad_notifier -v 2.3.3
