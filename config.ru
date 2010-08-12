@@ -1,6 +1,6 @@
-# require 'rubygems'
-# require 'bundler'
-# Bundler.setup
+require 'rubygems'
+require 'bundler'
+Bundler.setup
 
 ENV['DATABASE_URL'] = 'postgres://root@localhost/trevorturk' if ENV['RACK_ENV'] == 'development'
 # ENV['DATABASE_URL'] = 'mysql://root@localhost/wp_2_9_2' if ENV['RACK_ENV'] == 'development'

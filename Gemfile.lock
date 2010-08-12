@@ -1,0 +1,26 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activerecord (2.3.8)
+      activesupport (= 2.3.8)
+    activesupport (2.3.8)
+    hoptoad_notifier (2.3.3)
+      activesupport
+    pg (0.9.0)
+    rack (1.2.1)
+    sinatra (1.0)
+      rack (>= 1.0)
+    sinatra-activerecord (0.1.2)
+      sinatra (>= 0.9.4)
+    will_paginate (2.3.14)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activerecord (= 2.3.8)
+  hoptoad_notifier (= 2.3.3)
+  pg (= 0.9.0)
+  sinatra (= 1.0)
+  sinatra-activerecord (= 0.1.2)
+  will_paginate (= 2.3.14)
